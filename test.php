@@ -25,7 +25,6 @@ if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data);
 if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
 
-
 mysqli_close($conn);
 echo "<script>alert('Operação executada com sucesso! Clique em OK para continuar.');</script>";
 echo "<script>window.location.href = 'index.php';</script>";
@@ -52,6 +51,15 @@ function eliminar($id)
       } else {
             echo "Erro ao excluir registro: " . mysqli_error($conn);
       }
+     
+      $sql = "ALTER TABLE Eventos AUTO_INCREMENT = 1;";
+
+      if (mysqli_query($conn, $sql)) {
+            echo "Tabela ordenada com sucesso";
+      } else {
+            echo "Erro ao ordenar tabela: " . mysqli_error($conn);
+      }
+      
 }
 
 

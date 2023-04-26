@@ -18,7 +18,7 @@ $result = mysqli_query($conn, $sql);
 // Cria uma tabela HTML e preenche com os dados recuperados
 echo "<table class=table table-striped>";
 /* echo "<table>"; */
-echo "<tr><th>id</th><th width='170'>Nome</th><th width='130'>Local</th><th width='90'>Hora</th><th width='300'>Notas</th><th width='110'>Data</th></tr>";
+echo "<tr><th>id</th><th>Nome</th><th>Local</th><th>Hora</th><th>Notas</th><th>Data</th></tr>";
 
 while ($row = mysqli_fetch_assoc($result)) {
   echo "<tr>";
