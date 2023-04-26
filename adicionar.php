@@ -17,25 +17,22 @@
   <div id="container">
     <?php
     $valor = $_POST['extra']; // só pode ser 0 ou 3
-    $evento = $_POST['id'];  // usado apenas para modificar
+    $id = $_POST['id'];  // usado apenas para modificar
     if ($valor == 3) {
-      $conteudo_h1 = "Modificar Evento " . $evento;
+      $conteudo_h1 = "Modificar Evento " . $id;
       $v = "3";
 
       // Conecta ao banco de dados
-      $conexao = mysqli_connect('localhost', 'root', 'password', 'agenda');
+      $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
       // Busca os dados do usuário com o ID selecionado
-      $query = "SELECT * FROM Eventos WHERE id = $evento";
+      $query = "SELECT * FROM Eventos WHERE id = $id";
       $resultado = mysqli_query($conexao, $query);
       $dados_usuario = mysqli_fetch_array($resultado);
       // Preenche os campos do formulário com os valores do usuário
       $nomevelho = $dados_usuario['nome'];
       $localvelho = $dados_usuario['locale'];
       $notasvelho = $dados_usuario['notas'];
-   /*    $diavelho = $dados_usuario['dia'];
-      $mesvelho = $dados_usuario['mes'];
-      $anovelho = $dados_usuario['ano']; */
-
+      $horavelho=$dados_usuario['hora'];
       mysqli_close($conexao);
 
 
@@ -52,9 +49,9 @@
     <form class="row g-3" action="test.php" method="POST" autocomplete="off">
       <div class="col-md-6">
       <label for="nome">Nome</label>
-        <input type="name" name="nome" class="form-control"  id="inome" required>
-        <input type="hidden" name="extra" value="<?php echo $nomevelho; ?>">
-        <input type="hidden" name="id" value="<?php echo $evento; ?>">
+        <input type="name" name="nome" class="form-control" value="<?php echo $nomevelho; ?>" id="inome" required>
+        <input type="hidden" name="extra" value="<?php echo $v; ?>">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
       </div>
       <div class="col-md-6">
       <label for="local">Local</label>
@@ -66,7 +63,7 @@
       </div>
       <div class="form-group">
         <label for="ihora">Hora:</label>
-        <input type="time" name="hora" id="ihora" required>
+        <input type="time" name="hora" value="<?php echo $horavelho; ?>" id="ihora" required>
         <label for="idata">Data:</label>
         <input type="date" name="data" id="idata" required>
       </div>
