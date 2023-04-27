@@ -31,19 +31,46 @@ echo "<script>window.location.href = 'index.php';</script>";
 
 function adicionar($nome, $local, $hora, $notas, $data)
 {
-      global $conn;
+      /*   global $conn;
       $sql = "INSERT INTO Eventos (nome, locale, hora, notas, datas) VALUES ('$nome', '$local', '$hora', '$notas', '$data')";
       if (mysqli_query($conn, $sql)) {
             echo "New record created successfully";
       } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      } */
+
+
+      global $conn;
+
+      // Prepara a query com os placeholders
+      $sql = "INSERT INTO Eventos (nome, locale, hora, notas, datas) VALUES (?, ?, ?, ?, ?)";
+      $stmt = mysqli_prepare($conn, $sql);
+
+      // Verifica se a query foi preparada com sucesso
+      if ($stmt === false) {
+            echo "Erro ao preparar a query: " . mysqli_error($conn);
+            return;
       }
+
+      // Bind dos valores aos placeholders
+      mysqli_stmt_bind_param($stmt, "sssss", $nome, $local, $hora, $notas, $data);
+
+      // Executa a query
+      if (mysqli_stmt_execute($stmt)) {
+            echo "Novo registro criado com sucesso";
+      } else {
+            echo "Erro ao executar a query: " . mysqli_error($conn);
+      }
+
+      // Fecha o statement e a conexão com o banco de dados
+      mysqli_stmt_close($stmt);
+     /*  mysqli_close($conn); */
 }
 
 
 function eliminar($id)
 {
-      global $conn;
+  /*     global $conn;
       $sql = "DELETE FROM Eventos WHERE id = $id";
 
       if (mysqli_query($conn, $sql)) {
@@ -51,7 +78,36 @@ function eliminar($id)
       } else {
             echo "Erro ao excluir registro: " . mysqli_error($conn);
       }
-     
+
+      $sql = "ALTER TABLE Eventos AUTO_INCREMENT = 1;";
+
+      if (mysqli_query($conn, $sql)) {
+            echo "Tabela ordenada com sucesso";
+      } else {
+            echo "Erro ao ordenar tabela: " . mysqli_error($conn);
+      } */
+
+
+      global $conn;
+      $id = mysqli_real_escape_string($conn, $id);
+
+      // Prepare a statement
+      $stmt = mysqli_prepare($conn, "DELETE FROM Eventos WHERE id = ?");
+
+      // Bind the parameter
+      mysqli_stmt_bind_param($stmt, "i", $id);
+
+      // Execute the statement
+      if (mysqli_stmt_execute($stmt)) {
+            echo "Registro excluído com sucesso";
+      } else {
+            echo "Erro ao excluir registro: " . mysqli_error($conn);
+      }
+
+      // Close the statement
+      mysqli_stmt_close($stmt);
+
+      // Reset AUTO_INCREMENT to 1
       $sql = "ALTER TABLE Eventos AUTO_INCREMENT = 1;";
 
       if (mysqli_query($conn, $sql)) {
@@ -59,7 +115,6 @@ function eliminar($id)
       } else {
             echo "Erro ao ordenar tabela: " . mysqli_error($conn);
       }
-      
 }
 
 

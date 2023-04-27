@@ -23,7 +23,7 @@
       $v = "3";
 
       // Conecta ao banco de dados
-      $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
+      /*  $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
       // Busca os dados do usuário com o ID selecionado
       $query = "SELECT * FROM Eventos WHERE id = $id";
       $resultado = mysqli_query($conexao, $query);
@@ -33,33 +33,46 @@
       $localvelho = $dados_usuario['locale'];
       $notasvelho = $dados_usuario['notas'];
       $horavelho=$dados_usuario['hora'];
+      mysqli_close($conexao); */
+
+      $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
+      // Busca os dados do usuário com o ID selecionado
+      $query = "SELECT * FROM Eventos WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+      mysqli_stmt_bind_param($stmt, "i", $id);
+      mysqli_stmt_execute($stmt);
+      $resultado = mysqli_stmt_get_result($stmt);
+      $dados_usuario = mysqli_fetch_array($resultado);
+      // Preenche os campos do formulário com os valores do usuário
+      $nomevelho = $dados_usuario['nome'];
+      $localvelho = $dados_usuario['locale'];
+      $notasvelho = $dados_usuario['notas'];
+      $horavelho = $dados_usuario['hora'];
       mysqli_close($conexao);
-
-
     } else {
       $conteudo_h1 = "Adicionar Evento";
       $v = "1";
-      $nomevelho="";
-      $localvelho="";
-      $notasvelho="";
+      $nomevelho = "";
+      $localvelho = "";
+      $notasvelho = "";
     }
     ?>
     <h1><?php echo $conteudo_h1; ?></h1>
 
     <form class="row g-3" action="test.php" method="POST" autocomplete="off">
       <div class="col-md-6">
-      <label for="nome">Nome</label>
+        <label for="nome">Nome</label>
         <input type="name" name="nome" class="form-control" value="<?php echo $nomevelho; ?>" id="inome" required>
         <input type="hidden" name="extra" value="<?php echo $v; ?>">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
       </div>
       <div class="col-md-6">
-      <label for="local">Local</label>
+        <label for="local">Local</label>
         <input type="text" name="local" class="form-control" value="<?php echo $localvelho; ?>" id="ilocal" required>
       </div>
       <div class="col-12">
-      <label for="notas">Notas</label>
-        <input type="text" name="notas" class="form-control" value="<?php echo $notasvelho; ?>"id="inotas" required>
+        <label for="notas">Notas</label>
+        <input type="text" name="notas" class="form-control" value="<?php echo $notasvelho; ?>" id="inotas" required>
       </div>
       <div class="form-group">
         <label for="ihora">Hora:</label>
