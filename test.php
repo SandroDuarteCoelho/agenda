@@ -31,15 +31,6 @@ echo "<script>window.location.href = 'index.php';</script>";
 
 function adicionar($nome, $local, $hora, $notas, $data)
 {
-      /*   global $conn;
-      $sql = "INSERT INTO Eventos (nome, locale, hora, notas, datas) VALUES ('$nome', '$local', '$hora', '$notas', '$data')";
-      if (mysqli_query($conn, $sql)) {
-            echo "New record created successfully";
-      } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-      } */
-
-
       global $conn;
 
       // Prepara a query com os placeholders
@@ -70,23 +61,6 @@ function adicionar($nome, $local, $hora, $notas, $data)
 
 function eliminar($id)
 {
-  /*     global $conn;
-      $sql = "DELETE FROM Eventos WHERE id = $id";
-
-      if (mysqli_query($conn, $sql)) {
-            echo "Registro excluído com sucesso";
-      } else {
-            echo "Erro ao excluir registro: " . mysqli_error($conn);
-      }
-
-      $sql = "ALTER TABLE Eventos AUTO_INCREMENT = 1;";
-
-      if (mysqli_query($conn, $sql)) {
-            echo "Tabela ordenada com sucesso";
-      } else {
-            echo "Erro ao ordenar tabela: " . mysqli_error($conn);
-      } */
-
 
       global $conn;
       $id = mysqli_real_escape_string($conn, $id);

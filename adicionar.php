@@ -43,7 +43,7 @@
       $nomevelho = "";
       $localvelho = "";
       $notasvelho = "";
-      $datavelho="";
+      $datavelho = "";
     }
     ?>
     <h1><?php echo $conteudo_h1; ?></h1>
@@ -76,6 +76,19 @@
 
       </div>
     </form>
+
+
+
+    <div class="container text-center">
+      <div class="row row-cols-4">
+        <div class="col">Column</div>
+        <div class="col">Column</div>
+        <div class="col-6">Column</div>
+        <div class="col">Column</div>
+      </div>
+    </div>
+
+
   </div>
 </body>
 
