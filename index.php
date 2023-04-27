@@ -5,17 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="./css/estilo.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./css/estilo.css"> -->
   <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> -->
   <link rel="stylesheet" type="text/css" href="./bootstrap-5.2.3-dist/css/bootstrap.css">
-  
+
   <title>Agenda</title>
 </head>
 
 
 <body onload="time()">
 
-  <h2>Bem-vindo à sua Agenda.</h2>
+  <h2 style="text-align: center">Bem-vindo à sua Agenda.</h2>
   <br>
 
   <script>
@@ -30,12 +30,51 @@
   <br>
   <br>
   <br>
-  <a class="btn btn-primary" href="adicionar.php?extra=1">Adicionar Evento</a>
-  <a class="btn btn-primary" href="eliminar.php">Eliminar Evento</a>
-  <a class="btn btn-primary" href="modificar.php">Modificar Evento</a>
-  <a class="btn btn-primary" href="ver.php">Ver Eventos</a>
-  
-  <button onclick="limparRegistos()">Limpar Registos</button>
+
+
+  <div class="container text-center">
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      <div class="col">
+        <div class="p-3">
+          <form method="POST" action="adicionar.php">
+            <input type="hidden" name="extra" value="1">
+            <button type="submit" class="btn btn-primary">Adicionar Evento</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <form method="POST" action="mev.php">
+            <input type="hidden" name="extra" value="2">
+            <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <form method="POST" action="mev.php">
+            <input type="hidden" name="extra" value="3">
+            <button type="submit" class="btn btn-primary">Modificar Eventos</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <form method="POST" action="mev.php">
+            <input type="hidden" name="extra" value="4">
+            <button type="submit" class="btn btn-primary">Ver Eventos</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-3">
+          <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 
   <?php
   include "tempo_restante.php";

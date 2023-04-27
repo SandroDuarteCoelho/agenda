@@ -9,31 +9,18 @@
 
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="./bootstrap-5.2.3-dist/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="./css/adicionar.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./css/adicionar.css"> -->
 </head>
 
 <body>
 
   <div id="container">
     <?php
-    $valor = $_POST['extra']; // só pode ser 0 ou 3
+    $valor = $_POST['extra']; // só pode ser 1 ou 3
     $id = $_POST['id'];  // usado apenas para modificar
     if ($valor == 3) {
       $conteudo_h1 = "Modificar Evento " . $id;
       $v = "3";
-
-      // Conecta ao banco de dados
-      /*  $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
-      // Busca os dados do usuário com o ID selecionado
-      $query = "SELECT * FROM Eventos WHERE id = $id";
-      $resultado = mysqli_query($conexao, $query);
-      $dados_usuario = mysqli_fetch_array($resultado);
-      // Preenche os campos do formulário com os valores do usuário
-      $nomevelho = $dados_usuario['nome'];
-      $localvelho = $dados_usuario['locale'];
-      $notasvelho = $dados_usuario['notas'];
-      $horavelho=$dados_usuario['hora'];
-      mysqli_close($conexao); */
 
       $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
       // Busca os dados do usuário com o ID selecionado
@@ -48,6 +35,7 @@
       $localvelho = $dados_usuario['locale'];
       $notasvelho = $dados_usuario['notas'];
       $horavelho = $dados_usuario['hora'];
+      $datavelho = $dados_usuario['datas'];
       mysqli_close($conexao);
     } else {
       $conteudo_h1 = "Adicionar Evento";
@@ -55,6 +43,7 @@
       $nomevelho = "";
       $localvelho = "";
       $notasvelho = "";
+      $datavelho="";
     }
     ?>
     <h1><?php echo $conteudo_h1; ?></h1>
@@ -78,7 +67,7 @@
         <label for="ihora">Hora:</label>
         <input type="time" name="hora" value="<?php echo $horavelho; ?>" id="ihora" required>
         <label for="idata">Data:</label>
-        <input type="date" name="data" id="idata" required>
+        <input type="date" name="data" value="<?php echo $datavelho; ?>" id="idata" required>
       </div>
 
       <div class="col-12">
