@@ -6,7 +6,8 @@ $local = $_POST["local"];
 $hora = $_POST['hora'];
 $notas = $_POST["notas"];
 $data = $_POST["data"];
-
+$utilizador = $_POST["utilizador"];
+$password = $_POST["password"];
 
 $servername = "localhost";
 $database = "Agenda";
@@ -21,13 +22,50 @@ if (!$conn) {
 }
 
 $fazer = $_POST["extra"];
+if ($fazer == 0) login($utilizador, $password);
 if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data);
 if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
 
 mysqli_close($conn);
+echo "<script>alert(" . json_encode($utilizador) . ");</script>";
 echo "<script>alert('Operação executada com sucesso! Clique em OK para continuar.');</script>";
-echo "<script>window.location.href = 'index.php';</script>";
+echo "<script>window.location.href = 'inicio.php';</script>";
+
+function login($utilizador, $password)
+{
+      global $conn;
+      // Obtém o último ID inserido na tabela "Utilizadores"
+      $sql = "SELECT MAX(id) as last_id FROM Utilizadores";
+      $result = $conn->query($sql);
+      $row = $result->fetch_assoc();
+      $last_id = $row["last_id"];
+
+      // Cria um array associativo para armazenar o conteúdo dos campos "nome" e "pass"
+      $usuarios = array();
+      for ($id = 1; $id <= $last_id; $id++) {
+            $sql = "SELECT nome, pass FROM Utilizadores WHERE id = $id";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                  // Salva o resultado em um array associativo
+                  $row = $result->fetch_assoc();
+                  $usuarios["nome$id"] = $row["nome"];
+                  $usuarios["pass$id"] = $row["pass"];
+            }
+      }
+     
+
+
+      if ($usuarios["nome1"] === $utilizador && $usuarios["pass1"] === $password) {
+            echo "Bem-vindo, Alice!";
+            echo "<script>alert('Bem-vindo, Alice!  Clique em OK para continuar.');</script>";
+      } else {
+            echo "Nome de usuário ou senha inválidos.";
+      }
+}
+
+
 
 function adicionar($nome, $local, $hora, $notas, $data)
 {
@@ -55,7 +93,7 @@ function adicionar($nome, $local, $hora, $notas, $data)
 
       // Fecha o statement e a conexão com o banco de dados
       mysqli_stmt_close($stmt);
-     /*  mysqli_close($conn); */
+      /*  mysqli_close($conn); */
 }
 
 
@@ -63,6 +101,7 @@ function eliminar($id)
 {
 
       global $conn;
+
       $id = mysqli_real_escape_string($conn, $id);
 
       // Prepare a statement
@@ -83,6 +122,15 @@ function eliminar($id)
 
       // Reset AUTO_INCREMENT to 1
       $sql = "ALTER TABLE Eventos AUTO_INCREMENT = 1;";
+
+      if (mysqli_query($conn, $sql)) {
+            echo "Tabela ordenada com sucesso";
+      } else {
+            echo "Erro ao ordenar tabela: " . mysqli_error($conn);
+      }
+
+      // Update the ids of the remaining records
+      $sql = "UPDATE Eventos SET id = id - 1 WHERE id > " . $id . " ORDER BY id ASC;";
 
       if (mysqli_query($conn, $sql)) {
             echo "Tabela ordenada com sucesso";

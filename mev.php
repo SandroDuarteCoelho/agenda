@@ -91,7 +91,7 @@
             </div>
             <div class="col-md-12">
               <button type="submit" class="btn btn-primary">Eliminar</button>
-              <button type="submit" class="btn btn-dark" onclick="window.location.href = 'index.php';">Voltar</button>
+              <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
             </div>
           </div>
       </form>
@@ -105,16 +105,18 @@
             </div>
             <div class="col-md-12">
               <button type="submit" class="btn btn-primary">Modificar</button>
-              <button type="submit" class="btn btn-dark" onclick="window.location.href = 'index.php';">Voltar</button>
+              <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
             </div>
           </div>
       </form>
     <?php } elseif ($valor == "4") { ?>
-      <form action="index.php">
-        <button type="submit" class="btn btn-warning" onclick="window.print()">Imprimir</button>
-        <button type="submit" class="btn btn-dark">Voltar</button>
-      </form>
+        <button type="submit" class="btn btn-success" onclick="window.print()">Imprimir</button>
+        <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
     <?php } ?>
+
+ <!--    <footer class="pt-3 mt-4 text-muted border-top">
+      &copy; Sandro Coelho 2022
+    </footer> -->
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

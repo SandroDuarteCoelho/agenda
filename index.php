@@ -11,88 +11,118 @@
 </head>
 
 
-<body onload="time()">
 
-  <h2 style="text-align: center">Bem-vindo à sua Agenda.</h2>
+
+<body class="text-center" ; onload="time()" ;>
+  <?php
+
+
+ 
+ /*  $conn = new mysqli('localhost', 'root', 'password', 'Agenda');
+
+ 
+  if ($conn->connect_error) {
+    die("Conexão falhou: " . $conn->connect_error);
+  }
+
+  
+  $sql = "SELECT MAX(id) as last_id FROM Utilizadores";
+  $result = $conn->query($sql);
+  $row = $result->fetch_assoc();
+  $last_id = $row["last_id"];
+
+  $usuarios = array();
+  for ($id = 1; $id <= $last_id; $id++) {
+    $sql = "SELECT nome, pass FROM Utilizadores WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      
+      $row = $result->fetch_assoc();
+      $usuarios["nome$id"] = $row["nome"];
+      $usuarios["pass$id"] = $row["pass"];
+    }
+  }
+  $conn->close();
+ 
+  print_r($usuarios); */
+
+  // Faça a validação com os valores armazenados nos arrays
+  // ...
+
+
+
+
+
+
+
+
+  ?>
+
+
+
+
+
+  <br><br>
+  <h3>Agenda Pessoal</h3>
   <br>
-
-  <script>
-    dayName = new Array("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado")
-    monName = new Array("janeiro", "fevereiro", "março", "abril", "maio", "junho", "agosto", "outubro", "novembro", "dezembro")
-    now = new Date
-    document.write("<div style='text-align: center'><h1> Hoje é " + dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear() + ". </h1>")
-  </script>
-
-
-  <div id="txt" style="font-size: 50px;"></div>
-  <br>
-  <br>
-  <br>
-
-
   <div class="container text-center">
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="adicionar.php">
-            <input type="hidden" name="extra" value="1">
-            <button type="submit" class="btn btn-primary">Adicionar Evento</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="mev.php">
-            <input type="hidden" name="extra" value="2">
-            <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="mev.php">
-            <input type="hidden" name="extra" value="3">
-            <button type="submit" class="btn btn-primary">Modificar Eventos</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="mev.php">
-            <input type="hidden" name="extra" value="4">
-            <button type="submit" class="btn btn-primary">Ver Eventos</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button>
-        </div>
-      </div>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-8">
 
+
+        <div class="card mb-3" style="max-width: 840px;">
+          <div class="row g-0">
+            <div class="col-md-5">
+              <img src="./images/porta.jpg" class="img-fluid rounded-start" alt="Porta de entrada">
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">Faça o Registo</h5>
+                <br>
+
+
+                <form method="post" action="test.php">
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input type="text" name="utilizador" class="form-control" id="floatingInputGrid" placeholder="">
+                      <label for="floatingInputGrid">Utilizador</label>
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="form-floating">
+                      <input type="text" name="password" class="form-control" id="floatingInputGrid" placeholder="">
+                      <input type="hidden" name="extra" value="0">
+                      <label for="floatingInputGrid">Password</label>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="d-grid gap-2 d-md-block">
+                    <button class="btn btn-primary" type="submit">Entrar</button>
+                    <button class="btn btn-warning" type="button">Novo Utilizador</button>
+                  </div>
+                  <p class="card-text"><small class="text-muted">Hoje é <span id="diaSemana"></span>, <time datetime="now"></time></a><a id="txt"></a></small></p>
+                  <div id="txt"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
     </div>
   </div>
 
 
-  <?php
-  include "tempo_restante.php";
-  ?>
-
+  </div>
+  </div>
   <script>
-    function limparRegistos() {
-      // Exibe uma caixa de diálogo de confirmação com uma mensagem e dois botões "OK" e "Cancelar"
-      var resultado = confirm("Tem certeza de que deseja excluir todos os eventos? Esta ação não pode ser desfeita.");
-
-      // Verifica se o usuário clicou no botão "OK"
-      if (resultado == true) {
-        // Redireciona para o arquivo PHP que executará a exclusão dos registros
-        window.location.href = "verificadb.php";
-      }
-    }
+    const diasSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+    const dataAtual = new Date();
+    const diaAtual = dataAtual.getDay();
+    document.getElementById('diaSemana').innerHTML = diasSemana[diaAtual];
   </script>
-
-
-
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
   <script src="./js/script.js"></script>
