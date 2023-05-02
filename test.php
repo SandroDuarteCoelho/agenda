@@ -1,5 +1,5 @@
 <?php
-var_dump ($utilizador);
+
 $id = $_POST['id'];
 $nome = $_POST["nome"];
 $local = $_POST["local"];
@@ -7,8 +7,9 @@ $hora = $_POST['hora'];
 $notas = $_POST["notas"];
 $data = $_POST["data"];
 $utilizador = $_POST["utilizador"];
-$password = $_POST["senha"];
-var_dump ($utilizador);
+$senha = $_POST["senha"];
+/* var_dump($utilizador);
+var_dump($senha); */
 
 $servername = "localhost";
 $database = "Agenda";
@@ -23,38 +24,56 @@ if (!$conn) {
 }
 
 $fazer = $_POST["extra"];
-if ($fazer == 0) login($utilizador, $password);
+if ($fazer == 0) {
+      $resultado_login=login($utilizador, $senha);
+      if ($resultado_login == 1) {
+            // sucesso
+            echo "<script>window.location.href = 'inicio.php';</script>";
+      } else {
+            // falha
+            echo "<script>alert('Utilizador ou Password erradas! Tente novamente.');</script>";
+            echo "<script>window.location.href = 'index.php';</script>";
+      }
+}
 if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data);
 if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
 
 mysqli_close($conn);
-echo "<script>alert(" . json_encode($utilizador) . ");</script>";
+/* echo "<script>alert(" . json_encode($utilizador) . ");</script>"; */
 echo "<script>alert('Operação executada com sucesso! Clique em OK para continuar.');</script>";
 echo "<script>window.location.href = 'inicio.php';</script>";
 
 function login($utilizador, $senha)
 {
       global $conn;
+      /* var_dump($utilizador);
+      var_dump($senha); */
       
-
-      $query = "SELECT * FROM Utilizadores WHERE nome='$utilizador' AND senha='$senha'";
+      $query = "SELECT * FROM Utilizadores WHERE utilizador='$utilizador' AND senha='$senha'";
       $resultado = mysqli_query($conn, $query);
-
+      
       if (mysqli_num_rows($resultado) > 0) {
+            return 1;  
+      } else {
+            return 0;
+      }
+
+
+    /*   // Create prepared statement
+      $stmt = $conn->prepare("SELECT * FROM Utilizadores WHERE utilizador=? AND senha=?");
+      $stmt->bind_param("ss", $utilizador, $senha);
+      $stmt->execute();
+
+      // Check if there is a matching row in the database
+      if ($stmt->fetch()) {
             echo "Sucesso";
       } else {
             echo "Falha";
       }
 
-
-
-     /*  if ($usuarios["nome1"] === $utilizador && $usuarios["pass1"] === $password) {
-            echo "Bem-vindo, Alice!";
-            echo "<script>alert('Bem-vindo, Alice!  Clique em OK para continuar.');</script>";
-      } else {
-            echo "Nome de usuário ou senha inválidos.";
-      } */
+      // Close statement and connection
+      $stmt->close(); */
 }
 
 

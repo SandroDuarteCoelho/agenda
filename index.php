@@ -90,7 +90,7 @@
                   </div>
                   <div class="col-md">
                     <div class="form-floating">
-                      <input type="text" name="senha" class="form-control" id="isenha" autocomplete="off" placeholder="">
+                      <input type="password" name="senha" class="form-control" id="isenha" autocomplete="off" placeholder="">
                       <input type="hidden" name="extra" value="0">
                       <label for="floatingInputGrid">Password</label>
                     </div>
