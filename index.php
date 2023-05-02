@@ -17,8 +17,8 @@
   <?php
 
 
- 
- /*  $conn = new mysqli('localhost', 'root', 'password', 'Agenda');
+
+  /*  $conn = new mysqli('localhost', 'root', 'password', 'Agenda');
 
  
   if ($conn->connect_error) {
@@ -81,17 +81,16 @@
                 <h5 class="card-title">Faça o Registo</h5>
                 <br>
 
-
                 <form method="post" action="test.php">
                   <div class="col-md">
                     <div class="form-floating">
-                      <input type="text" name="utilizador" class="form-control" id="floatingInputGrid" placeholder="">
+                      <input type="text" name="utilizador" class="form-control" id="iutilizador" autocomplete="off" placeholder="">
                       <label for="floatingInputGrid">Utilizador</label>
                     </div>
                   </div>
                   <div class="col-md">
                     <div class="form-floating">
-                      <input type="text" name="password" class="form-control" id="floatingInputGrid" placeholder="">
+                      <input type="text" name="senha" class="form-control" id="isenha" autocomplete="off" placeholder="">
                       <input type="hidden" name="extra" value="0">
                       <label for="floatingInputGrid">Password</label>
                     </div>

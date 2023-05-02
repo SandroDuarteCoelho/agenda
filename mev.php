@@ -23,6 +23,10 @@
   <div id="txt" style="font-size: 50px;"></div>
 
 
+
+
+
+
   <?php
   /* echo $_POST['extra']; */
   $valor = $_POST['extra'];
@@ -57,22 +61,38 @@
   if (mysqli_stmt_execute($stmt)) {
     $result = mysqli_stmt_get_result($stmt);
 
-    echo "<table class='table table-striped'>";
-    echo "<thead class='table-dark'><tr><th>id</th><th>Nome</th><th>Local</th><th>Hora</th><th>Notas</th><th>Data</th></tr></thead>";
-    echo "<tbody>";
+  ?>
 
-    while ($row = mysqli_fetch_assoc($result)) {
-      echo "<tr>";
-      echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
-      echo "<td>" . htmlspecialchars($row["nome"]) . "</td>";
-      echo "<td>" . htmlspecialchars($row["locale"]) . "</td>";
-      echo "<td>" . htmlspecialchars($row["hora"]) . "</td>";
-      echo "<td>" . htmlspecialchars($row["notas"]) . "</td>";
-      echo "<td>" . htmlspecialchars($row["datas"]) . "</td>";
-      echo "</tr>";
-    }
+    <div class="container text-center">
+      <div class="row justify-content-md-center">
+        <div class="col-md-12">
 
-    echo "</tbody></table>";
+          <div class="table-responsive">
+            <?php
+            echo "<table class='table table-light table-striped'>";
+            echo "<thead class='table-dark'><tr><th>id</th><th>Nome</th><th>Local</th><th>Hora</th><th>Notas</th><th>Data</th></tr></thead>";
+            echo "<tbody>";
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "<tr>";
+              echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["nome"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["locale"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["hora"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["notas"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["datas"]) . "</td>";
+              echo "</tr>";
+            }
+            echo "</tbody></table>";
+            ?>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <?php
+
   } else {
     die('Erro ao executar a consulta: ' . mysqli_stmt_error($stmt));
   }
@@ -82,39 +102,54 @@
   ?>
   <div class="form-group">
     <?php if ($valor == "2") { ?>
-      <form action="test.php" method="POST">
-        <div class="row g-3">
-          <div class="form-group">
-            <div class="col-md-12">
-              <input type="number" name="id" id="id" placeholder="Qual o evento a eliminar?" min="1" max="100" required>
-              <input type="hidden" name="extra" value="2">
-            </div>
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-primary">Eliminar</button>
-              <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
-            </div>
+      <div class="container text-center">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+
+            <form class="row g-3" action="test.php" method="POST">
+              <div class="col-3">
+                <input type="number" class="form-control" name="id" id="id" placeholder="Evento nº" autocomplete="off" required>
+                <input type="hidden" name="extra" value="2">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Eliminar</button>
+                <button type="submit" class="btn btn-dark mb-3" onclick="window.history.back()">Voltar</button>
+              </div>
+            </form>
+
           </div>
-      </form>
+        </div>
+      </div>
+
     <?php } elseif ($valor == "3") { ?>
-      <form action="adicionar.php" method="POST">
-        <div class="row g-3">
-          <div class="form-group">
-            <div class="col-md-12">
-              <input type="number" name="id" id="id" placeholder="Qual o evento a modificar?" min="1" max="100" required>
-              <input type="hidden" name="extra" value="3">
-            </div>
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-primary">Modificar</button>
-              <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
-            </div>
+      <div class="container text-center">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+
+            <form class="row g-3" action="adicionar.php" method="POST">
+              <div class="col-3">
+                <input type="number" class="form-control" name="id" id="id" placeholder="Evento nº" autocomplete="off" required>
+                <input type="hidden" name="extra" value="3">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Modificar</button>
+                <button type="submit" class="btn btn-dark mb-3" onclick="window.history.back()">Voltar</button>
+              </div>
+            </form>
+
           </div>
-      </form>
+        </div>
+      </div>
+
+
+      <br><br>
+
     <?php } elseif ($valor == "4") { ?>
-        <button type="submit" class="btn btn-success" onclick="window.print()">Imprimir</button>
-        <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
+      <button type="submit" class="btn btn-success" onclick="window.print()">Imprimir</button>
+      <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
     <?php } ?>
 
- <!--    <footer class="pt-3 mt-4 text-muted border-top">
+    <!--    <footer class="pt-3 mt-4 text-muted border-top">
       &copy; Sandro Coelho 2022
     </footer> -->
 

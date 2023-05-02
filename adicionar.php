@@ -46,18 +46,20 @@
     }
     ?>
 
-    <br>
     <br><br>
 
     <div class="container text-center">
+      <div class="row justify-content-md-center ">
+        <div class="col-md-6 mx-2 ">
 
+          <div class="card text-bg-light mb-3">
+            <img src="./images/b8_.jpg" class="card-img" alt="bloco de notas">
+            <div class="card-img-overlay">
 
-      <div class="col-md-12 offset-md-3 ">
-        <div class="row align-items-md-stretch">
-          <div class="col-md-6">
-            <div class="h-100 p-5 bg-light border rounded-3">
+              <br>
+
               <h1><?php echo $conteudo_h1; ?></h1>
-              <form class="row g-3" action="test.php" method="POST" autocomplete="off">
+              <form class="p-5 row g-3 " action="test.php" method="POST" autocomplete="off">
                 <div class="col-md-6">
                   <label for="nome">Nome</label>
                   <input type="name" name="nome" class="form-control" value="<?php echo $nomevelho; ?>" id="inome" required>
@@ -81,18 +83,17 @@
                 <div class="col-12">
                   <button type="submit" class="btn btn-primary">Guardar</button>
                   <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
-
                 </div>
               </form>
             </div>
           </div>
+
         </div>
       </div>
-     
     </div>
-    
   </div>
-  
+  <br>
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>

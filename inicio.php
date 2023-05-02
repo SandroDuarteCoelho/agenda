@@ -13,71 +13,78 @@
 
 <body onload="time()">
 
-  <h2 style="text-align: center">Bem-vindo à sua Agenda.</h2>
-  <br>
+  <div class="card text-bg-light text-dark">
+    <img src="./images/b7.jpg" class="card-img" alt="agenda" style="width: 300px; height: 225px;">
+    <div class="card-img-overlay">
+      <h2 style="text-align: center">Bem-vindo à sua Agenda.</h2>
+      <br>
 
-  <script>
-    dayName = new Array("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado")
-    monName = new Array("janeiro", "fevereiro", "março", "abril", "maio", "junho", "agosto", "outubro", "novembro", "dezembro")
-    now = new Date
-    document.write("<div style='text-align: center'><h1> Hoje é " + dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear() + ". </h1>")
-  </script>
-
-
-  <div id="txt" style="font-size: 50px;"></div>
-  <br>
-  <br>
-  <br>
+      <script>
+        dayName = new Array("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado")
+        monName = new Array("janeiro", "fevereiro", "março", "abril", "maio", "junho", "agosto", "outubro", "novembro", "dezembro")
+        now = new Date
+        document.write("<div style='text-align: center'><h1> Hoje é " + dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear() + ". </h1>")
+      </script>
 
 
-  <div class="container text-center">
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="adicionar.php">
-            <input type="hidden" name="extra" value="1">
-            <button type="submit" class="btn btn-primary">Adicionar Evento</button>
-          </form>
+      <div id="txt" style="font-size: 50px;"></div>
+      <br>
+      <br>
+      <br>
+
+      <div class="container text-center">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+          <div class="col">
+            <div class="p-3">
+              <form method="POST" action="adicionar.php">
+                <input type="hidden" name="extra" value="1">
+                <button type="submit" class="btn btn-primary">Adicionar Evento</button>
+              </form>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3">
+              <form method="POST" action="mev.php">
+                <input type="hidden" name="extra" value="2">
+                <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
+              </form>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3">
+              <form method="POST" action="mev.php">
+                <input type="hidden" name="extra" value="3">
+                <button type="submit" class="btn btn-primary">Modificar Eventos</button>
+              </form>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3">
+              <form method="POST" action="mev.php">
+                <input type="hidden" name="extra" value="4">
+                <button type="submit" class="btn btn-primary">Ver Eventos</button>
+              </form>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-3">
+              <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="mev.php">
-            <input type="hidden" name="extra" value="2">
-            <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="mev.php">
-            <input type="hidden" name="extra" value="3">
-            <button type="submit" class="btn btn-primary">Modificar Eventos</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <form method="POST" action="mev.php">
-            <input type="hidden" name="extra" value="4">
-            <button type="submit" class="btn btn-primary">Ver Eventos</button>
-          </form>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-3">
-          <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button>
-        </div>
-      </div>
+
+
+      <?php
+      include "tempo_restante.php";
+      ?>
+
 
     </div>
   </div>
 
-
-  <?php
-  include "tempo_restante.php";
-  ?>
-
+ 
   <script>
     function limparRegistos() {
       // Exibe uma caixa de diálogo de confirmação com uma mensagem e dois botões "OK" e "Cancelar"
