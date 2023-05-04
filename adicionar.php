@@ -77,6 +77,9 @@
                 <div class="form-group">
                   <label for="ihora">Hora:</label>
                   <input type="time" name="hora" value="<?php echo $horavelho; ?>" id="ihora" required>
+                  <div class="cs-form">
+                    <input type="time" class="form-control" value="10:05 AM" />
+                  </div>
                   <label for="idata">Data:</label>
                   <input type="date" name="data" value="<?php echo $datavelho; ?>" id="idata" required>
                 </div>

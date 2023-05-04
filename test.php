@@ -52,6 +52,10 @@ function login($utilizador, $senha)
       
       $query = "SELECT * FROM Utilizadores WHERE utilizador='$utilizador' AND senha='$senha'";
       $resultado = mysqli_query($conn, $query);
+    /*   echo $query;
+      echo "<br>";
+      echo mysqli_num_rows($resultado);
+      die(); */
       
       if (mysqli_num_rows($resultado) > 0) {
             return 1;  
@@ -60,20 +64,24 @@ function login($utilizador, $senha)
       }
 
 
-    /*   // Create prepared statement
-      $stmt = $conn->prepare("SELECT * FROM Utilizadores WHERE utilizador=? AND senha=?");
+  // Create prepared statement
+ /*      $stmt = $conn->prepare("SELECT * FROM Utilizadores WHERE utilizador=? AND senha=?");
       $stmt->bind_param("ss", $utilizador, $senha);
       $stmt->execute();
 
+      
+     
       // Check if there is a matching row in the database
       if ($stmt->fetch()) {
             echo "Sucesso";
+            return 1;
       } else {
             echo "Falha";
+            return 0;
       }
 
       // Close statement and connection
-      $stmt->close(); */
+      $stmt->close();  */
 }
 
 
