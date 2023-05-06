@@ -63,33 +63,13 @@
 
   ?>
 
-    <div class="container text-center">
-      <div class="row justify-content-md-center">
-        <div class="col-md-12">
 
-          <div class="table-responsive">
-            <?php
-            echo "<table class='table table-light table-striped'>";
-            echo "<thead class='table-dark'><tr><th>id</th><th>Nome</th><th>Local</th><th>Hora</th><th>Notas</th><th>Data</th></tr></thead>";
-            echo "<tbody>";
 
-            while ($row = mysqli_fetch_assoc($result)) {
-              echo "<tr>";
-              echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
-              echo "<td>" . htmlspecialchars($row["nome"]) . "</td>";
-              echo "<td>" . htmlspecialchars($row["locale"]) . "</td>";
-              echo "<td>" . htmlspecialchars($row["hora"]) . "</td>";
-              echo "<td>" . htmlspecialchars($row["notas"]) . "</td>";
-              echo "<td>" . htmlspecialchars($row["datas"]) . "</td>";
-              echo "</tr>";
-            }
-            echo "</tbody></table>";
-            ?>
-          </div>
 
-        </div>
-      </div>
-    </div>
+
+
+
+    
 
   <?php
 
@@ -100,8 +80,42 @@
   mysqli_stmt_close($stmt);
   mysqli_close($conn);
   ?>
+
+
+
+
+
+
   <div class="form-group">
     <?php if ($valor == "2") { ?>
+
+      <div class="container text-center">
+        <div class="row justify-content-md-center">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <?php
+              echo "<table class='table table-light table-striped'>";
+              echo "<thead class='table-dark'><tr><th>id</th><th>Nome</th><th>Local</th><th>Hora</th><th>Notas</th><th>Data</th><th></th></tr></thead>";
+              echo "<tbody>";
+              while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["nome"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["locale"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["hora"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["notas"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["datas"]) . "</td>";
+                echo "<td><a href='excluir.php?id=" . $row["id"] . "' class='btn btn-danger'>Excluir</a></td>";
+                echo "</tr>";
+              }
+              echo "</tbody></table>";
+              ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <div class="container text-center">
         <div class="row justify-content-md-center">
           <div class="col-md-auto">
@@ -145,6 +159,35 @@
       <br><br>
 
     <?php } elseif ($valor == "4") { ?>
+      <div class="container text-center">
+      <div class="row justify-content-md-center">
+        <div class="col-md-12">
+
+          <div class="table-responsive">
+            <?php
+            echo "<table class='table table-light table-striped'>";
+            echo "<thead class='table-dark'><tr><th>id</th><th>Nome</th><th>Local</th><th>Hora</th><th>Notas</th><th>Data</th></tr></thead>";
+            echo "<tbody>";
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "<tr>";
+              echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["nome"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["locale"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["hora"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["notas"]) . "</td>";
+              echo "<td>" . htmlspecialchars($row["datas"]) . "</td>";
+              echo "</tr>";
+            }
+            echo "</tbody></table>";
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
       <button type="submit" class="btn btn-success" onclick="window.print()">Imprimir</button>
       <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
     <?php } ?>

@@ -25,7 +25,7 @@ if (!$conn) {
 
 $fazer = $_POST["extra"];
 if ($fazer == 0) {
-      $resultado_login=login($utilizador, $senha);
+      $resultado_login = login($utilizador, $senha);
       if ($resultado_login == 1) {
             // sucesso
             echo "<script>window.location.href = 'inicio.php';</script>";
@@ -40,32 +40,40 @@ if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
 
 mysqli_close($conn);
-/* echo "<script>alert(" . json_encode($utilizador) . ");</script>"; */
-echo "<script>alert('Operação executada com sucesso! Clique em OK para continuar.');</script>";
-echo "<script>window.location.href = 'inicio.php';</script>";
+header('Location: inicio.php');
+/* ?>
+<form id="myForm" method="post" action="inicio.php">
+      <input type="hidden" name="inicio" value="1">
+</form>
+<script>
+      window.onload = function() {
+            document.getElementById('myForm').submit();
+      }
+</script>
 
+<?php */
 function login($utilizador, $senha)
 {
       global $conn;
       /* var_dump($utilizador);
       var_dump($senha); */
-      
+
       $query = "SELECT * FROM Utilizadores WHERE utilizador='$utilizador' AND senha='$senha'";
       $resultado = mysqli_query($conn, $query);
-    /*   echo $query;
+      /*   echo $query;
       echo "<br>";
       echo mysqli_num_rows($resultado);
       die(); */
-      
+
       if (mysqli_num_rows($resultado) > 0) {
-            return 1;  
+            return 1;
       } else {
             return 0;
       }
 
 
-  // Create prepared statement
- /*      $stmt = $conn->prepare("SELECT * FROM Utilizadores WHERE utilizador=? AND senha=?");
+      // Create prepared statement
+      /*      $stmt = $conn->prepare("SELECT * FROM Utilizadores WHERE utilizador=? AND senha=?");
       $stmt->bind_param("ss", $utilizador, $senha);
       $stmt->execute();
 
