@@ -8,6 +8,15 @@
   <!-- <link rel="stylesheet" type="text/css" href="./bootstrap-5.2.3-dist/css/bootstrap.css"> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <title>Agenda</title>
+
+  <?php
+  session_start();
+  if ((!isset($_SESSION['utilizador']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location:index.php');
+  }
+
+  $logado = $_SESSION['utilizador'];
+  ?>
 </head>
 
 
@@ -36,28 +45,27 @@
       // Obtém o valor da variável "inicio" enviada por POST
       $valor = $_POST["inicio"];
       if ($valor == 1) {
-        
-        ?>
-            <div class="modal modal-alert position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalChoice">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content rounded-3 shadow">
-                <div class="modal-body p-4 text-center">
-                  <h5 class="mb-0">Enable this setting?</h5>
-                  <p class="mb-0">You can always change your mind in your account settings.</p>
-                </div>
-                <div class="modal-footer flex-nowrap p-0">
-                  <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end"><strong>Yes, enable</strong></button>
-                  <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No thanks</button>
-                </div>
+
+      ?>
+        <div class="modal modal-alert position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalChoice">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-3 shadow">
+              <div class="modal-body p-4 text-center">
+                <h5 class="mb-0">Enable this setting?</h5>
+                <p class="mb-0">You can always change your mind in your account settings.</p>
+              </div>
+              <div class="modal-footer flex-nowrap p-0">
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end"><strong>Yes, enable</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No thanks</button>
               </div>
             </div>
           </div>
+        </div>
 
-<?php
+      <?php
 
       }
-      // Faz algo com o valor da variável
-      /* echo "O valor da variável é $valor"; */
+
       ?>
 
       <div class="container text-center">
@@ -96,7 +104,11 @@
           </div>
           <div class="col">
             <div class="p-3">
-              <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button>
+              <form method="POST" action="test.php">
+                <input type="hidden" name="extra" value="4">
+                <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
+                <!-- <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button> -->
+              </form>
             </div>
           </div>
 
@@ -115,12 +127,8 @@
 
   <script>
     function limparRegistos() {
-      // Exibe uma caixa de diálogo de confirmação com uma mensagem e dois botões "OK" e "Cancelar"
       var resultado = confirm("Tem certeza de que deseja excluir todos os eventos? Esta ação não pode ser desfeita.");
-
-      // Verifica se o usuário clicou no botão "OK"
       if (resultado == true) {
-        // Redireciona para o arquivo PHP que executará a exclusão dos registros
         window.location.href = "verificadb.php";
       }
     }

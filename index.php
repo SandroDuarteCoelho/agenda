@@ -11,57 +11,7 @@
 </head>
 
 
-
-
 <body class="text-center" ; onload="time()" ;>
-  <?php
-
-
-
-  /*  $conn = new mysqli('localhost', 'root', 'password', 'Agenda');
-
- 
-  if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-  }
-
-  
-  $sql = "SELECT MAX(id) as last_id FROM Utilizadores";
-  $result = $conn->query($sql);
-  $row = $result->fetch_assoc();
-  $last_id = $row["last_id"];
-
-  $usuarios = array();
-  for ($id = 1; $id <= $last_id; $id++) {
-    $sql = "SELECT nome, pass FROM Utilizadores WHERE id = $id";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-      
-      $row = $result->fetch_assoc();
-      $usuarios["nome$id"] = $row["nome"];
-      $usuarios["pass$id"] = $row["pass"];
-    }
-  }
-  $conn->close();
- 
-  print_r($usuarios); */
-
-  // Faça a validação com os valores armazenados nos arrays
-  // ...
-
-
-
-
-
-
-
-
-  ?>
-
-
-
-
 
   <br><br>
   <h3>Agenda Pessoal</h3>

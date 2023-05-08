@@ -18,7 +18,7 @@
     $valor = $_POST['extra']; // só pode ser 1 ou 3
     $id = $_POST['id'];  // usado apenas para modificar
     if ($valor == 3) {
-      $conteudo_h1 = "Modificar Evento " . $id;
+      $conteudo_h1 = "Modificar Evento ";
       $v = "3";
 
       $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
@@ -53,7 +53,7 @@
         <div class="col-md-6 mx-2 ">
 
           <div class="card text-bg-light mb-3">
-            <img src="./images/b8_.jpg" class="card-img" alt="bloco de notas">
+            <img src="./images/moroccan-flower.png" class="card-img" alt="bloco de notas">
             <div class="card-img-overlay">
 
               <br>
@@ -77,15 +77,12 @@
                 <div class="form-group">
                   <label for="ihora">Hora:</label>
                   <input type="time" name="hora" value="<?php echo $horavelho; ?>" id="ihora" required>
-                  <div class="cs-form">
-                    <input type="time" class="form-control" value="10:05 AM" />
-                  </div>
                   <label for="idata">Data:</label>
                   <input type="date" name="data" value="<?php echo $datavelho; ?>" id="idata" required>
                 </div>
                 <div class="col-12">
                   <button type="submit" class="btn btn-primary">Guardar</button>
-                  <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
+                  <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>
                 </div>
               </form>
             </div>
@@ -100,5 +97,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
+
 
 </html>

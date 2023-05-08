@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $id = $_POST['id'];
 $nome = $_POST["nome"];
@@ -18,57 +19,36 @@ $password = "password";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
-// Check connection
 if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
 }
 
 $fazer = $_POST["extra"];
-if ($fazer == 0) {
-      $resultado_login = login($utilizador, $senha);
-      if ($resultado_login == 1) {
-            // sucesso
-            echo "<script>window.location.href = 'inicio.php';</script>";
-      } else {
-            // falha
-            echo "<script>alert('Utilizador ou Password erradas! Tente novamente.');</script>";
-            echo "<script>window.location.href = 'index.php';</script>";
-      }
-}
+if ($fazer == 0) login($utilizador, $senha);
 if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data);
 if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
+if ($fazer == 4) logout();
 
-mysqli_close($conn);
-header('Location: inicio.php');
-/* ?>
-<form id="myForm" method="post" action="inicio.php">
-      <input type="hidden" name="inicio" value="1">
-</form>
-<script>
-      window.onload = function() {
-            document.getElementById('myForm').submit();
-      }
-</script>
 
-<?php */
 function login($utilizador, $senha)
 {
       global $conn;
-      /* var_dump($utilizador);
-      var_dump($senha); */
-
       $query = "SELECT * FROM Utilizadores WHERE utilizador='$utilizador' AND senha='$senha'";
       $resultado = mysqli_query($conn, $query);
-      /*   echo $query;
+      /*      echo $query;
       echo "<br>";
-      echo mysqli_num_rows($resultado);
-      die(); */
+      echo mysqli_num_rows($resultado); */
+      /* die(); */
 
       if (mysqli_num_rows($resultado) > 0) {
-            return 1;
+            $_SESSION['utilizador'] = $utilizador;
+            $_SESSION['senha'] = $senha;
+            header('Location: inicio.php');
       } else {
-            return 0;
+            unset($_SESSION['utilizador']);
+            unset($_SESSION['senha']);
+            header('Location: index.php');
       }
 
 
@@ -121,6 +101,8 @@ function adicionar($nome, $local, $hora, $notas, $data)
       // Fecha o statement e a conexão com o banco de dados
       mysqli_stmt_close($stmt);
       /*  mysqli_close($conn); */
+      mysqli_close($conn);
+      header('Location: inicio.php');
 }
 
 
@@ -164,6 +146,8 @@ function eliminar($id)
       } else {
             echo "Erro ao ordenar tabela: " . mysqli_error($conn);
       }
+      mysqli_close($conn);
+      header('Location: inicio.php');
 }
 
 
@@ -187,4 +171,14 @@ function modificar($id, $nome, $local, $hora, $notas, $data)
       if (!$result) {
             die('Erro ao executar a consulta: ' . $conn->error);
       }
+      mysqli_close($conn);
+      header('Location: inicio.php');
+}
+
+function logout()
+{
+      session_start();
+      session_destroy();
+      header("Location: index.php");
+      exit();
 }
