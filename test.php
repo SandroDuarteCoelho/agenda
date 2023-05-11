@@ -177,7 +177,6 @@ function modificar($id, $nome, $local, $hora, $notas, $data)
 
 function logout()
 {
-      session_start();
       session_destroy();
       header("Location: index.php");
       exit();
