@@ -41,7 +41,7 @@ function login($utilizador, $senha)
 
       // Crie uma consulta SQL para recuperar a senha encriptada e o salt do usuário especificado
       $selectQuery = "SELECT id, senha, salt FROM Utilizadores WHERE utilizador = ?";
-echo $utilizador;
+/* echo $utilizador; */
 
       // Prepare a instrução SQL
       $stmt = mysqli_prepare($conn, $selectQuery);
