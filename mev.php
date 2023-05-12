@@ -16,6 +16,7 @@
   }
 
   $logado = $_SESSION['utilizador'];
+  $id_utilizador = $_SESSION['id'];
   ?>
 
 </head>
@@ -63,7 +64,7 @@
     die("Connection failed: " . mysqli_connect_error());
   }
 
-  $sql = "SELECT id, nome, locale, hora, notas, datas FROM Eventos";
+  /* $sql = "SELECT id, nome, locale, hora, notas, datas FROM Eventos";
   $stmt = mysqli_prepare($conn, $sql);
 
   if (!$stmt) {
@@ -74,10 +75,26 @@
     $result = mysqli_stmt_get_result($stmt);
   } else {
     die('Erro ao executar a consulta: ' . mysqli_stmt_error($stmt));
+  } */
+
+
+  $sql = "SELECT id, nome, locale, hora, notas, datas FROM Eventos WHERE id_utilizador=?";
+  $stmt = mysqli_prepare($conn, $sql);
+  mysqli_stmt_bind_param($stmt, "i", $id_utilizador);
+
+  if (mysqli_stmt_execute($stmt)) {
+    $result = mysqli_stmt_get_result($stmt);
+  } else {
+    die('Erro ao executar a consulta: ' . mysqli_stmt_error($stmt));
   }
 
+  /* while ($row = mysqli_fetch_assoc($result)) {
+    // Fazer algo com cada linha retornada, por exemplo:
+    echo $row['id'] . ' ' . $row['nome'] . ' ' . $row['locale'] . ' ' . $row['hora'] . ' ' . $row['notas'] . ' ' . $row['datas'] . '<br>';
+}
+
   mysqli_stmt_close($stmt);
-  mysqli_close($conn);
+  mysqli_close($conn); */
   ?>
 
 
@@ -121,6 +138,8 @@
                     echo "</td>";
                     echo "</tr>";
                   }
+                  mysqli_stmt_close($stmt);
+                  mysqli_close($conn);
                   ?>
                 </tbody>
               </table>
@@ -165,6 +184,8 @@
                     echo "</td>";
                     echo "</tr>";
                   }
+                  mysqli_stmt_close($stmt);
+                  mysqli_close($conn);
                   ?>
                 </tbody>
               </table>
@@ -172,7 +193,7 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-dark mb-3" onclick="window.history.back()">Voltar</button>
+      <button type="submit" class="btn btn-dark mb-3" onclick="window.location.href='inicio.php'">Voltar</button>
 
 
     <?php } elseif ($valor == "4") { ?>
@@ -195,18 +216,20 @@
                 echo "</tr>";
               }
               echo "</tbody></table>";
+              mysqli_stmt_close($stmt);
+              mysqli_close($conn);
               ?>
             </div>
           </div>
         </div>
       </div>
       <button type="submit" class="btn btn-success" onclick="window.print()">Imprimir</button>
-      <button type="submit" class="btn btn-dark" onclick="window.history.back()">Voltar</button>
+      <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>
     <?php } ?>
 
-    <!--    <footer class="pt-3 mt-4 text-muted border-top">
+    <footer class="pt-3 mt-4 text-muted border-top">
       &copy; Sandro Coelho 2022
-    </footer> -->
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

@@ -16,6 +16,7 @@
   }
 
   $logado = $_SESSION['utilizador'];
+  $id_utilizador = $_SESSION['id'];
   ?>
 </head>
 
@@ -25,7 +26,7 @@
   <div class="card text-bg-light text-dark">
     <img src="./images/b7.jpg" class="card-img" alt="agenda" style="width: 300px; height: 225px;">
     <div class="card-img-overlay">
-      <h2 style="text-align: center">Bem-vindo à sua Agenda.</h2>
+      <h2 style="text-align: center">Bem-vindo à sua Agenda, <strong><?php echo $logado; ?></strong>.</h2>
       <br>
 
       <script>
@@ -103,11 +104,13 @@
             </div>
           </div>
           <div class="col">
-            <div class="p-3">
-              <form method="POST" action="test.php">
-                <input type="hidden" name="extra" value="4">
+            <div class="p-6">
+             <!--  <form method="POST" action="test.php"> -->
+                <input type="hidden" name="extra" value="7">
                 <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
-                <!-- <button onclick="limparRegistos()" class="btn btn-light">Limpar Registos</button> -->
+                <button type="submit" class="btn btn-secondary">Gerir conta</button>
+                <br><br>
+                <button onclick=limparRegistos() class="btn btn-danger">Limpar Registos</button>
               </form>
             </div>
           </div>

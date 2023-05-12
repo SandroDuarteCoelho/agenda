@@ -9,6 +9,16 @@
 
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="./bootstrap-5.2.3-dist/css/bootstrap.css">
+
+  <?php
+  session_start();
+  if ((!isset($_SESSION['utilizador']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location:index.php');
+  }
+
+  $logado = $_SESSION['utilizador'];
+  $id_utilizador = $_SESSION['id'];
+  ?>
 </head>
 
 <body>
@@ -19,7 +29,6 @@
     $id = $_POST['id'];  // usado apenas para modificar
     if ($valor == 3) {
       $conteudo_h1 = "Modificar Evento ";
-      $v = "3";
 
       $conexao = mysqli_connect('localhost', 'root', 'password', 'Agenda');
       // Busca os dados do usuário com o ID selecionado
@@ -63,8 +72,9 @@
                 <div class="col-md-6">
                   <label for="nome">Nome</label>
                   <input type="name" name="nome" class="form-control" value="<?php echo $nomevelho; ?>" id="inome" required>
-                  <input type="hidden" name="extra" value="<?php echo $v; ?>">
+                  <input type="hidden" name="extra" value="<?php echo $valor; ?>">
                   <input type="hidden" name="id" value="<?php echo $id; ?>">
+                  <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>">
                 </div>
                 <div class="col-md-6">
                   <label for="local">Local</label>

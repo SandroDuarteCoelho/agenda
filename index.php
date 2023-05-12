@@ -35,7 +35,7 @@
                   <div class="col-md">
                     <div class="form-floating">
                       <input type="text" name="utilizador" class="form-control" id="iutilizador" autocomplete="off" placeholder="">
-                      <label for="floatingInputGrid">Utilizador</label>
+                      <label for="floatingInputGrid">Utilizador ou Email</label>
                     </div>
                   </div>
                   <div class="col-md">
@@ -48,7 +48,7 @@
                   <br>
                   <div class="d-grid gap-2 d-md-block">
                     <button class="btn btn-primary" type="submit">Entrar</button>
-                    <button class="btn btn-warning" type="button">Novo Utilizador</button>
+                    <button class="btn btn-warning" type="button" onclick="window.location.href='novo_utili.php'">Novo Utilizador</button>
                   </div>
                   <p class="card-text"><small class="text-muted">Hoje é <span id="diaSemana"></span>, <time datetime="now"></time></a><a id="txt"></a></small></p>
                   <div id="txt"></div>

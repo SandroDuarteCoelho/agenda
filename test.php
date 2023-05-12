@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$id_utilizador = $_POST['id_utilizador'];
 $id = $_POST['id'];
 $nome = $_POST["nome"];
 $local = $_POST["local"];
@@ -9,8 +9,6 @@ $notas = $_POST["notas"];
 $data = $_POST["data"];
 $utilizador = $_POST["utilizador"];
 $senha = $_POST["senha"];
-/* var_dump($utilizador);
-var_dump($senha); */
 
 $servername = "localhost";
 $database = "Agenda";
@@ -25,61 +23,83 @@ if (!$conn) {
 
 $fazer = $_POST["extra"];
 if ($fazer == 0) login($utilizador, $senha);
-if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data);
+if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data, $id_utilizador);
 if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
 if ($fazer == 4) logout();
+if ($fazer == 5) novo_utilizador($utilizador, $senha);
+
 
 
 function login($utilizador, $senha)
 {
       global $conn;
-      $query = "SELECT * FROM Utilizadores WHERE utilizador='$utilizador' AND senha='$senha'";
-      $resultado = mysqli_query($conn, $query);
-      /*      echo $query;
-      echo "<br>";
-      echo mysqli_num_rows($resultado); */
-      /* die(); */
+      $N = 16384; // Fator de custo
+      $r = 8; // Tamanho do bloco
+      $p = 1; // Fator de paralelismo
+      $hashLength = 32; // Tamanho da saída do hash em bytes
 
-      if (mysqli_num_rows($resultado) > 0) {
-            $_SESSION['utilizador'] = $utilizador;
-            $_SESSION['senha'] = $senha;
-            header('Location: inicio.php');
+      // Crie uma consulta SQL para recuperar a senha encriptada e o salt do usuário especificado
+      $selectQuery = "SELECT id, senha, salt FROM Utilizadores WHERE utilizador = ?";
+echo $utilizador;
+
+      // Prepare a instrução SQL
+      $stmt = mysqli_prepare($conn, $selectQuery);
+
+      // Verifique se a instrução foi preparada com sucesso
+      if ($stmt) {
+            // Defina os parâmetros da instrução
+            mysqli_stmt_bind_param($stmt, 's', $utilizador);
+
+            // Execute a instrução SQL
+            mysqli_stmt_execute($stmt);
+
+            // Obtenha o resultado da consulta
+            $result = mysqli_stmt_get_result($stmt);
+
+            // Verifique se a consulta retornou resultados
+            if (mysqli_num_rows($result) > 0) {
+                  // Recupere a senha encriptada e o salt do primeiro registro retornado
+                  $row = mysqli_fetch_assoc($result);
+                  /* $id = $row['id']; */
+
+                  // Verifique se a senha fornecida pelo usuário é válida
+                  $hashedPassword = hash_pbkdf2('sha256', $senha, $row['salt'], $N * $r * $p, $hashLength, true);
+
+                  if ($hashedPassword === $row['senha']) {
+                        // A senha é válida
+                        $_SESSION['utilizador'] = $utilizador;
+                        $_SESSION['senha'] = $senha;
+                        $_SESSION['id']=$row['id'];
+                        header('Location: inicio.php');
+                  } else {
+                        // A senha é inválida
+                        unset($_SESSION['utilizador']);
+                        unset($_SESSION['senha']);
+                        header('Location: index.php');
+                  }
+            } else {
+                  // O usuário não foi encontrado
+                  unset($_SESSION['utilizador']);
+                  unset($_SESSION['senha']);
+                  header('Location: index.php');
+            }
+
+            // Libere a instrução preparada
+            mysqli_stmt_close($stmt);
       } else {
-            unset($_SESSION['utilizador']);
-            unset($_SESSION['senha']);
-            header('Location: index.php');
+            // Erro ao preparar a instrução SQL
+            die('Erro ao preparar a instrução SQL: ' . mysqli_error($conn));
       }
-
-
-      // Create prepared statement
-      /*      $stmt = $conn->prepare("SELECT * FROM Utilizadores WHERE utilizador=? AND senha=?");
-      $stmt->bind_param("ss", $utilizador, $senha);
-      $stmt->execute();
-
-      
-     
-      // Check if there is a matching row in the database
-      if ($stmt->fetch()) {
-            echo "Sucesso";
-            return 1;
-      } else {
-            echo "Falha";
-            return 0;
-      }
-
-      // Close statement and connection
-      $stmt->close();  */
 }
 
 
-
-function adicionar($nome, $local, $hora, $notas, $data)
+function adicionar($nome, $local, $hora, $notas, $data, $id_utilizador)
 {
       global $conn;
 
       // Prepara a query com os placeholders
-      $sql = "INSERT INTO Eventos (nome, locale, hora, notas, datas) VALUES (?, ?, ?, ?, ?)";
+      $sql = "INSERT INTO Eventos (nome, locale, hora, notas, datas, id_utilizador) VALUES (?, ?, ?, ?, ?, ?)";
       $stmt = mysqli_prepare($conn, $sql);
 
       // Verifica se a query foi preparada com sucesso
@@ -89,7 +109,7 @@ function adicionar($nome, $local, $hora, $notas, $data)
       }
 
       // Bind dos valores aos placeholders
-      mysqli_stmt_bind_param($stmt, "sssss", $nome, $local, $hora, $notas, $data);
+      mysqli_stmt_bind_param($stmt, "ssssss", $nome, $local, $hora, $notas, $data, $id_utilizador);
 
       // Executa a query
       if (mysqli_stmt_execute($stmt)) {
@@ -180,4 +200,31 @@ function logout()
       session_destroy();
       header("Location: index.php");
       exit();
+}
+
+
+function novo_utilizador($utilizador, $senha)
+{
+      // encriptar com algoritmo scrypt
+      $N = 16384; // Fator de custo
+      $r = 8; // Tamanho do bloco
+      $p = 1; // Fator de paralelismo
+      $hashLength = 32; // Tamanho da saída do hash em bytes
+      $salt = openssl_random_pseudo_bytes(16); // Gere um salt aleatório
+
+      $hashedPassword = hash_pbkdf2('sha256', $senha, $salt, $N * $r * $p, $hashLength, true);
+
+      // Crie uma consulta SQL para inserir a senha encriptada na tabela de usuários
+      global $conn;
+      $insertQuery = "INSERT INTO Utilizadores (utilizador, senha, salt) VALUES ('$utilizador', '$hashedPassword', '$salt')";
+
+      // Execute a consulta SQL usando a função mysqli_query
+      if (mysqli_query($conn, $insertQuery)) {
+            echo "Senha inserida com sucesso!";
+      } else {
+            echo "Erro ao inserir senha: " . mysqli_error($conn);
+      }
+
+      mysqli_close($conn);
+      header('Location: index.php');
 }
