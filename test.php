@@ -17,6 +17,13 @@ $password = "password";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
+if ($conn) {
+      $version = mysqli_get_server_info($conn);
+      echo "Versão do MariaDB: " . $version;
+  } else {
+      echo "Erro ao conectar ao banco de dados.";
+  }
+
 if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
 }
