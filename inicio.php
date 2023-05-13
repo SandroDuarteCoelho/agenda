@@ -64,10 +64,29 @@
         </div>
 
       <?php
-
       }
-
       ?>
+
+      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-outline-primary">Adicionar Evento</button>
+        <button type="button" class="btn btn-outline-primary">Eliminar Eventos</button>
+        <button type="button" class="btn btn-outline-primary">Modificar Eventos</button>
+        <button type="button" class="btn btn-outline-primary">Ver Eventos</button>
+
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Outros
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Sair</a></li>
+            <li><a class="dropdown-item" href="#">Gerir Conta</a></li>
+            <li><a class="dropdown-item" href="#">Limpar Registos</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+
 
       <div class="container text-center">
         <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
@@ -105,12 +124,12 @@
           </div>
           <div class="col">
             <div class="p-6">
-             <!--  <form method="POST" action="test.php"> -->
-                <input type="hidden" name="extra" value="7">
-                <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
-                <button type="submit" class="btn btn-secondary">Gerir conta</button>
-                <br><br>
-                <button onclick=limparRegistos() class="btn btn-danger">Limpar Registos</button>
+              <!--  <form method="POST" action="test.php"> -->
+              <input type="hidden" name="extra" value="7">
+              <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
+              <button type="submit" class="btn btn-secondary" onclick="window.location.href='gerir_utili.php'">Gerir conta</button>
+              <br><br>
+              <button onclick=limparRegistos() class="btn btn-danger"><small class="text">Limpar Registos</small></button>
               </form>
             </div>
           </div>

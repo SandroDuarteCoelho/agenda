@@ -23,7 +23,7 @@
 
 <body>
 
-  <div id="container">
+
     <?php
     $valor = $_POST['extra']; // só pode ser 1 ou 3
     $id = $_POST['id'];  // usado apenas para modificar
@@ -54,10 +54,59 @@
       $datavelho = "";
     }
     ?>
-
-    <br><br>
-
+    <br>
     <div class="container text-center">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col">
+          <div class="row row-cols-1 row-cols-md-2 g-0">
+            <div class="card w-200 mx-auto">
+              <div class="card-body">
+                <h5 class="card-title"><b><?php echo $conteudo_h1; ?></b></h5>
+                <form class="p-3 row g-3 " action="test.php" method="POST" autocomplete="off">
+                  <div class="col-md-6">
+                    <label for="nome">Nome</label>
+                    <input type="name" name="nome" class="form-control" value="<?php echo $nomevelho; ?>" id="inome" required>
+                    <input type="hidden" name="extra" value="<?php echo $valor; ?>">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="local">Local</label>
+                    <input type="text" name="local" class="form-control" value="<?php echo $localvelho; ?>" id="ilocal" required>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- <label for="notas">Notas</label> -->
+                    <input type="text" name="notas" class="form-control" value="<?php echo $notasvelho; ?>" id="inotas" placeholder="-Notas extras-" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="ihora">Hora:</label>
+                    <input type="time" name="hora" value="<?php echo $horavelho; ?>" id="ihora" required>
+                    <label for="idata">Data:</label>
+                    <input type="date" name="data" value="<?php echo $datavelho; ?>" id="idata" required>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                      <button type="submit" class="btn btn-success">Guardar</button>
+                      <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+              <img src="./images/tarefa3.jpg" class="card-img-bottom" alt="grupo de trabalho" style="height: 229px; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<br>
+
+
+
+    <!-- <div class="container text-center">
       <div class="row justify-content-md-center ">
         <div class="col-md-6 mx-2 ">
 
@@ -100,9 +149,7 @@
 
         </div>
       </div>
-    </div>
-  </div>
-  <br>
+    </div> -->
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
