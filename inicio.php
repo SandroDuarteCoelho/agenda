@@ -67,83 +67,86 @@
       }
       ?>
 
-      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <!--   <div class="btn-group" role="group" aria-label="Button group with nested dropdown"> -->
+      <form method="POST" action="adicionar.php">
+        <input type="hidden" name="extra" value="1">
         <button type="button" class="btn btn-outline-primary">Adicionar Evento</button>
-        <button type="button" class="btn btn-outline-primary">Eliminar Eventos</button>
-        <button type="button" class="btn btn-outline-primary">Modificar Eventos</button>
-        <button type="button" class="btn btn-outline-primary">Ver Eventos</button>
+      </form>
+      <button type="button" class="btn btn-outline-primary">Eliminar Eventos</button>
+      <button type="button" class="btn btn-outline-primary">Modificar Eventos</button>
+      <button type="button" class="btn btn-outline-primary">Ver Eventos</button>
 
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Outros
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Sair</a></li>
-            <li><a class="dropdown-item" href="#">Gerir Conta</a></li>
-            <li><a class="dropdown-item" href="#">Limpar Registos</a></li>
-          </ul>
-        </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Outros
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Sair</a></li>
+          <li><a class="dropdown-item" href="#">Gerir Conta</a></li>
+          <li><a class="dropdown-item" href="#">Limpar Registos</a></li>
+        </ul>
       </div>
-
-
-
-
-      <div class="container text-center">
-        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-          <div class="col">
-            <div class="p-3">
-              <form method="POST" action="adicionar.php">
-                <input type="hidden" name="extra" value="1">
-                <button type="submit" class="btn btn-primary">Adicionar Evento</button>
-              </form>
-            </div>
-          </div>
-          <div class="col">
-            <div class="p-3">
-              <form method="POST" action="mev.php">
-                <input type="hidden" name="extra" value="2">
-                <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
-              </form>
-            </div>
-          </div>
-          <div class="col">
-            <div class="p-3">
-              <form method="POST" action="mev.php">
-                <input type="hidden" name="extra" value="3">
-                <button type="submit" class="btn btn-primary">Modificar Eventos</button>
-              </form>
-            </div>
-          </div>
-          <div class="col">
-            <div class="p-3">
-              <form method="POST" action="mev.php">
-                <input type="hidden" name="extra" value="4">
-                <button type="submit" class="btn btn-primary">Ver Eventos</button>
-              </form>
-            </div>
-          </div>
-          <div class="col">
-            <div class="p-6">
-              <!--  <form method="POST" action="test.php"> -->
-              <input type="hidden" name="extra" value="7">
-              <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
-              <button type="submit" class="btn btn-secondary" onclick="window.location.href='gerir_utili.php'">Gerir conta</button>
-              <br><br>
-              <button onclick=limparRegistos() class="btn btn-danger"><small class="text">Limpar Registos</small></button>
-              </form>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-
-      <?php
-      include "tempo_restante.php";
-      ?>
-
-
     </div>
+
+
+
+
+    <div class="container text-center">
+      <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+        <div class="col">
+          <div class="p-3">
+            <form method="POST" action="adicionar.php">
+              <input type="hidden" name="extra" value="1">
+              <button type="submit" class="btn btn-primary">Adicionar Evento</button>
+            </form>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3">
+            <form method="POST" action="mev.php">
+              <input type="hidden" name="extra" value="2">
+              <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
+            </form>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3">
+            <form method="POST" action="mev.php">
+              <input type="hidden" name="extra" value="3">
+              <button type="submit" class="btn btn-primary">Modificar Eventos</button>
+            </form>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3">
+            <form method="POST" action="mev.php">
+              <input type="hidden" name="extra" value="4">
+              <button type="submit" class="btn btn-primary">Ver Eventos</button>
+            </form>
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-6">
+            <!--  <form method="POST" action="test.php"> -->
+            <input type="hidden" name="extra" value="7">
+            <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
+            <button type="submit" class="btn btn-secondary" onclick="window.location.href='gerir_utili.php'">Gerir conta</button>
+            <br><br>
+            <button onclick=limparRegistos() class="btn btn-danger"><small class="text">Limpar Registos</small></button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <?php
+    include "tempo_restante.php";
+    ?>
+
+
+  </div>
   </div>
 
 
