@@ -37,7 +37,7 @@
             </div>
             <div class="card-body">
               <h5 class="card-title">Atualize os seus dados pessoais</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">Qualquer alteração feita só terá efeitos práticos na próxima vez que fizer login.</p>
 
               <div class="d-flex justify-content-center">
                 <form class="row g-3" action="test.php" method="POST">

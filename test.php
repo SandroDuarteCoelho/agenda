@@ -17,16 +17,16 @@ $password = "password";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
-if ($conn) {
+/* if ($conn) {
       $version = mysqli_get_server_info($conn);
       echo "Versão do MariaDB: " . $version;
   } else {
       echo "Erro ao conectar ao banco de dados.";
-  }
+  } */
 
-/* if (!$conn) {
+if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
-} */
+}
 
 
 $fazer = $_POST["extra"];
@@ -51,7 +51,7 @@ function login($utilizador, $senha)
 
       // Crie uma consulta SQL para recuperar a senha encriptada e o salt do usuário especificado
       $selectQuery = "SELECT id, senha, salt FROM Utilizadores WHERE utilizador = ?";
-/* echo $utilizador; */
+      /* echo $utilizador; */
 
       // Prepare a instrução SQL
       $stmt = mysqli_prepare($conn, $selectQuery);
@@ -80,7 +80,11 @@ function login($utilizador, $senha)
                         // A senha é válida
                         $_SESSION['utilizador'] = $utilizador;
                         $_SESSION['senha'] = $senha;
-                        $_SESSION['id']=$row['id'];
+                        $_SESSION['id'] = $row['id'];
+                     /*    echo $_SESSION['utilizador'];
+                        echo "<br>";
+                        echo $_SESSION['id']; */
+                        /* die(); */
                         header('Location: inicio.php');
                   } else {
                         // A senha é inválida
@@ -241,7 +245,7 @@ function novo_utilizador($utilizador, $senha)
 
 function alterar_utilizador($id_utilizador, $utilizador, $senha)
 {
-     
+
       // encriptar com algoritmo scrypt
       $N = 16384; // Fator de custo
       $r = 8; // Tamanho do bloco
@@ -268,7 +272,7 @@ function alterar_utilizador($id_utilizador, $utilizador, $senha)
 function apagar_utilizador($id_utilizador)
 {
       echo $id_utilizador;
-      
+
       global $conn;
       $deleteUtilizadoresQuery = "DELETE FROM Utilizadores WHERE id = $id_utilizador";
       $deleteEventosQuery = "DELETE FROM Eventos WHERE id_utilizador = $id_utilizador";
