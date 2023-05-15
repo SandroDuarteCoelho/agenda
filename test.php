@@ -24,12 +24,10 @@ if ($conn) {
       echo "Erro ao conectar ao banco de dados.";
   }
 
-if (!$conn) {
+/* if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
-}
+} */
 
-echo $id_utilizador;
-echo $_POST["extra"];
 
 $fazer = $_POST["extra"];
 if ($fazer == 0) login($utilizador, $senha);

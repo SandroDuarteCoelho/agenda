@@ -228,7 +228,7 @@
     <?php } ?>
 
     <footer class="pt-3 mt-4 text-muted border-top">
-      &copy; Sandro Coelho 2022
+      &copy; Sandro Coelho 2023
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
