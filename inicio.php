@@ -23,131 +23,109 @@
 
 <body onload="time()">
 
-  <div class="card text-bg-light text-dark">
-    <img src="./images/b7.jpg" class="card-img" alt="agenda" style="width: 300px; height: 225px;">
-    <div class="card-img-overlay">
-      <h2 style="text-align: center">Bem-vindo à sua Agenda, <strong><?php echo $logado; ?></strong>.</h2>
-      <br>
+  <!-- <div class="card mb-1"> -->
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="./images/b7.jpg" class="img-fluid rounded-start" alt="agenda">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <br><br>
+        <h2 style="text-align: center">Bem-vindo à sua Agenda, <strong><?php echo $logado; ?></strong>.</h2>
+        <br>
+        <script>
+          dayName = new Array("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado")
+          monName = new Array("janeiro", "fevereiro", "março", "abril", "maio", "junho", "agosto", "outubro", "novembro", "dezembro")
+          now = new Date
+          document.write("<div style='text-align: center'><h1> Hoje é " + dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear() + ". </h1>")
+        </script>
+        <div id="txt" style="font-size: 50px;"></div>
+      </div>
+    </div>
+  </div>
 
-      <script>
-        dayName = new Array("domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado")
-        monName = new Array("janeiro", "fevereiro", "março", "abril", "maio", "junho", "agosto", "outubro", "novembro", "dezembro")
-        now = new Date
-        document.write("<div style='text-align: center'><h1> Hoje é " + dayName[now.getDay()] + ", " + now.getDate() + " de " + monName[now.getMonth()] + " de " + now.getFullYear() + ". </h1>")
-      </script>
+  </div>
+  <br>
+  <div class="container text-center">
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      <div class="col">
+        <div class="p-2">
+          <form method="POST" action="adicionar.php">
+            <input type="hidden" name="extra" value="1">
+            <button type="submit" class="btn btn-outline-primary">Adicionar Evento</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <form method="POST" action="mev.php">
+            <input type="hidden" name="extra" value="2">
+            <button type="submit" class="btn btn-outline-primary">Eliminar Eventos</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <form method="POST" action="mev.php">
+            <input type="hidden" name="extra" value="3">
+            <button type="submit" class="btn btn-outline-primary">Modificar Eventos</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <form method="POST" action="mev.php">
+            <input type="hidden" name="extra" value="4">
+            <button type="submit" class="btn btn-outline-primary">Ver Eventos</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="p-2">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Outros
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="index.php?valor=1">Sair</a></li>
+              <li><a class="dropdown-item" href="gerir_utili.php">Gerir Conta</a></li>
+              <li><button onclick=limparRegistos() class="dropdown-item">Limpar Registos</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-      <div id="txt" style="font-size: 50px;"></div>
-      <br>
-      <br>
-      <br>
-
-      <?php
-      // Obtém o valor da variável "inicio" enviada por POST
-      $valor = $_POST["inicio"];
-      if ($valor == 1) {
-
-      ?>
-        <div class="modal modal-alert position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalChoice">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content rounded-3 shadow">
-              <div class="modal-body p-4 text-center">
-                <h5 class="mb-0">Enable this setting?</h5>
-                <p class="mb-0">You can always change your mind in your account settings.</p>
-              </div>
-              <div class="modal-footer flex-nowrap p-0">
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end"><strong>Yes, enable</strong></button>
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No thanks</button>
-              </div>
+  <!-- <div class="modal modal-signin position-static d-block py-2" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header p-3 pb-2 border-bottom-0">
+          <h1 class="fw-bold mb-0 fs-5">Código de segurança</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3 pt-0">
+          <form>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
             </div>
-          </div>
+            <button class="w-100 mb-2 btn btn rounded-3 btn-primary" type="submit">Verificar</button>
+          </form>
         </div>
-
-      <?php
-      }
-      ?>
-
-      <!--   <div class="btn-group" role="group" aria-label="Button group with nested dropdown"> -->
-      <form method="POST" action="adicionar.php">
-        <input type="hidden" name="extra" value="1">
-        <button type="button" class="btn btn-outline-primary">Adicionar Evento</button>
-      </form>
-      <button type="button" class="btn btn-outline-primary">Eliminar Eventos</button>
-      <button type="button" class="btn btn-outline-primary">Modificar Eventos</button>
-      <button type="button" class="btn btn-outline-primary">Ver Eventos</button>
-
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          Outros
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Sair</a></li>
-          <li><a class="dropdown-item" href="#">Gerir Conta</a></li>
-          <li><a class="dropdown-item" href="#">Limpar Registos</a></li>
-        </ul>
       </div>
     </div>
+  </div> -->
 
 
 
 
-    <div class="container text-center">
-      <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-        <div class="col">
-          <div class="p-3">
-            <form method="POST" action="adicionar.php">
-              <input type="hidden" name="extra" value="1">
-              <button type="submit" class="btn btn-primary">Adicionar Evento</button>
-            </form>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3">
-            <form method="POST" action="mev.php">
-              <input type="hidden" name="extra" value="2">
-              <button type="submit" class="btn btn-primary">Eliminar Eventos</button>
-            </form>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3">
-            <form method="POST" action="mev.php">
-              <input type="hidden" name="extra" value="3">
-              <button type="submit" class="btn btn-primary">Modificar Eventos</button>
-            </form>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-3">
-            <form method="POST" action="mev.php">
-              <input type="hidden" name="extra" value="4">
-              <button type="submit" class="btn btn-primary">Ver Eventos</button>
-            </form>
-          </div>
-        </div>
-        <div class="col">
-          <div class="p-6">
-            <!--  <form method="POST" action="test.php"> -->
-            <input type="hidden" name="extra" value="7">
-            <button onclick="window.location.href = 'index.php?valor=1';" class="btn btn-light">Sair</button>
-            <button type="submit" class="btn btn-secondary" onclick="window.location.href='gerir_utili.php'">Gerir conta</button>
-            <br><br>
-            <button onclick=limparRegistos() class="btn btn-danger"><small class="text">Limpar Registos</small></button>
-            </form>
-          </div>
-        </div>
+  <?php
+  include "tempo_restante.php";
+  ?>
 
-      </div>
-    </div>
-
-
-    <?php
-    include "tempo_restante.php";
-    ?>
-
-
-  </div>
-  </div>
 
 
   <script>
@@ -158,8 +136,6 @@
       }
     }
   </script>
-
-
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

@@ -28,6 +28,9 @@ if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
 }
 
+echo $id_utilizador;
+echo $_POST["extra"];
+
 $fazer = $_POST["extra"];
 if ($fazer == 0) login($utilizador, $senha);
 if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data, $id_utilizador);
@@ -35,6 +38,8 @@ if ($fazer == 2) eliminar($id);
 if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
 if ($fazer == 4) logout();
 if ($fazer == 5) novo_utilizador($utilizador, $senha);
+if ($fazer == 6) alterar_utilizador($id_utilizador, $utilizador, $senha);
+if ($fazer == 7) apagar_utilizador($id_utilizador);
 
 
 
@@ -232,6 +237,49 @@ function novo_utilizador($utilizador, $senha)
             echo "Erro ao inserir senha: " . mysqli_error($conn);
       }
 
+      mysqli_close($conn);
+      header('Location: index.php');
+}
+
+function alterar_utilizador($id_utilizador, $utilizador, $senha)
+{
+     
+      // encriptar com algoritmo scrypt
+      $N = 16384; // Fator de custo
+      $r = 8; // Tamanho do bloco
+      $p = 1; // Fator de paralelismo
+      $hashLength = 32; // Tamanho da saída do hash em bytes
+      $salt = openssl_random_pseudo_bytes(16); // Gere um salt aleatório
+
+      $hashedPassword = hash_pbkdf2('sha256', $senha, $salt, $N * $r * $p, $hashLength, true);
+
+      global $conn;
+      $updateQuery = "UPDATE Utilizadores SET utilizador = '$utilizador', senha = '$hashedPassword', salt = '$salt' WHERE id = $id_utilizador";
+
+      // Execute a consulta SQL usando a função mysqli_query
+      if (mysqli_query($conn, $updateQuery)) {
+            echo "Atualização feita com sucesso!";
+      } else {
+            echo "Erro ao atualizar: " . mysqli_error($conn);
+      }
+      mysqli_close($conn);
+      header('Location: inicio.php');
+}
+
+
+function apagar_utilizador($id_utilizador)
+{
+      echo $id_utilizador;
+      
+      global $conn;
+      $deleteUtilizadoresQuery = "DELETE FROM Utilizadores WHERE id = $id_utilizador";
+      $deleteEventosQuery = "DELETE FROM Eventos WHERE id_utilizador = $id_utilizador";
+
+      if ($conn->query($deleteUtilizadoresQuery) === TRUE && $conn->query($deleteEventosQuery) === TRUE) {
+            echo "Apagado com sucesso!";
+      } else {
+            echo "Erro ao apagar: " . mysqli_error($conn);
+      }
       mysqli_close($conn);
       header('Location: index.php');
 }

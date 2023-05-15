@@ -94,7 +94,7 @@
                 </form>
 
               </div>
-              <img src="./images/tarefa3.jpg" class="card-img-bottom" alt="grupo de trabalho" style="height: 229px; object-fit: cover;">
+              <img src="./images/t1.jpg" class="card-img-bottom" alt="grupo de trabalho" style="height: 229px; object-fit: cover;">
             </div>
           </div>
         </div>
