@@ -37,12 +37,9 @@
   <div id="txt" style="font-size: 50px;"></div>
 
 
-
-
-
-
   <?php
-  /* echo $_POST['extra']; */
+  $id_user = $_POST['id_user'];
+  $user = $_POST['user'];
   $valor = $_POST['extra'];
   /* echo $valor; */
   if ($valor == 4) {
@@ -64,23 +61,12 @@
     die("Connection failed: " . mysqli_connect_error());
   }
 
-  /* $sql = "SELECT id, nome, locale, hora, notas, datas FROM Eventos";
-  $stmt = mysqli_prepare($conn, $sql);
-
-  if (!$stmt) {
-    die('Erro ao preparar a consulta: ' . mysqli_error($conn));
-  }
-
-  if (mysqli_stmt_execute($stmt)) {
-    $result = mysqli_stmt_get_result($stmt);
-  } else {
-    die('Erro ao executar a consulta: ' . mysqli_stmt_error($stmt));
-  } */
 
 
   $sql = "SELECT id, nome, locale, hora, notas, datas FROM Eventos WHERE id_utilizador=?";
   $stmt = mysqli_prepare($conn, $sql);
-  mysqli_stmt_bind_param($stmt, "i", $id_utilizador);
+  /* mysqli_stmt_bind_param($stmt, "i", $id_utilizador); */
+  mysqli_stmt_bind_param($stmt, "i", $id_user);
 
   if (mysqli_stmt_execute($stmt)) {
     $result = mysqli_stmt_get_result($stmt);
@@ -88,18 +74,7 @@
     die('Erro ao executar a consulta: ' . mysqli_stmt_error($stmt));
   }
 
-  /* while ($row = mysqli_fetch_assoc($result)) {
-    // Fazer algo com cada linha retornada, por exemplo:
-    echo $row['id'] . ' ' . $row['nome'] . ' ' . $row['locale'] . ' ' . $row['hora'] . ' ' . $row['notas'] . ' ' . $row['datas'] . '<br>';
-}
-
-  mysqli_stmt_close($stmt);
-  mysqli_close($conn); */
   ?>
-
-
-
-
 
 
   <div class="form-group">
@@ -133,6 +108,8 @@
                     echo "<form action='test.php' method='post'>";
                     echo "<input type='hidden' name='id' value='" . $row["id"] . "'>";
                     echo "<input type='hidden' name='extra' value='2'>";
+                    echo "<input type='hidden' name='id_user' value='".$id_user."'>";
+                    echo "<input type='hidden' name='user' value='".$user."'>";
                     echo "<button type='submit' class='btn btn-danger'>Excluir</button>";
                     echo "</form>";
                     echo "</td>";
@@ -147,8 +124,11 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-dark mb-3" onclick="window.history.back()">Voltar</button>
-
+      <form action="inicio.php" method="post">
+        <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+        <input type="hidden" name="user" value="<?php echo $user; ?>">
+        <button type="submit" class="btn btn-dark mb-3" onclick="window.location.href='inicio.php'">Voltar</button>
+      </form>
 
     <?php } elseif ($valor == "3") { ?>
       <div class="container text-center">
@@ -179,6 +159,8 @@
                     echo "<form action='adicionar.php' method='post'>";
                     echo "<input type='hidden' name='id' value='" . $row["id"] . "'>";
                     echo "<input type='hidden' name='extra' value='3'>";
+                    echo "<input type='hidden' name='id_user' value='".$id_user."'>";
+                    echo "<input type='hidden' name='user' value='".$user."'>";
                     echo "<button type='submit' class='btn btn-warning'>Modificar</button>";
                     echo "</form>";
                     echo "</td>";
@@ -193,8 +175,11 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-dark mb-3" onclick="window.location.href='inicio.php'">Voltar</button>
-
+      <form action="inicio.php" method="post">
+        <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+        <input type="hidden" name="user" value="<?php echo $user; ?>">
+        <button type="submit" class="btn btn-dark mb-3" onclick="window.location.href='inicio.php'">Voltar</button>
+      </form>
 
     <?php } elseif ($valor == "4") { ?>
       <div class="container text-center">
@@ -223,8 +208,20 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-success" onclick="window.print()">Imprimir</button>
-      <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>
+      <form action="inicio.php" method="post">
+      <button type="submit" class="btn btn-success" onclick="window.print()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+          <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+          <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+        </svg>
+        Imprimir
+      </button>
+
+      
+        <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+        <input type="hidden" name="user" value="<?php echo $user; ?>">
+        <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>
+      </form>
     <?php } ?>
 
     <footer class="pt-3 mt-4 text-muted border-top">

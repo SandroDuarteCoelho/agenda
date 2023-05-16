@@ -26,7 +26,7 @@
               <br>
               <form action="test.php" method="POST" autocomplete="off">
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control" name="utilizador" id="iutilizador" autocomplete="off" placeholder="name@example.com">
+                  <input type="email" class="form-control" name="user" id="iutilizador" autocomplete="off" placeholder="name@example.com">
                   <input type="hidden" name="extra" value="5">
                   <label for="floatingInput">Email address</label>
                 </div>

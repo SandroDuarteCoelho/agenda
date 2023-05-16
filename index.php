@@ -34,7 +34,7 @@
                 <form method="post" action="test.php">
                   <div class="col-md">
                     <div class="form-floating">
-                      <input type="text" name="utilizador" class="form-control" id="iutilizador" autocomplete="off" placeholder="">
+                      <input type="text" name="user" class="form-control" id="iutilizador" autocomplete="off" placeholder="">
                       <label for="floatingInputGrid">Utilizador ou Email</label>
                     </div>
                   </div>

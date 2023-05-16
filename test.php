@@ -1,13 +1,16 @@
 <?php
 session_start();
-$id_utilizador = $_POST['id_utilizador'];
+$user = $_POST['user'];
+$id_user = $_POST['id_user'];
+
+/* $id_utilizador = $_POST['id_utilizador']; */
 $id = $_POST['id'];
 $nome = $_POST["nome"];
 $local = $_POST["local"];
 $hora = $_POST['hora'];
 $notas = $_POST["notas"];
 $data = $_POST["data"];
-$utilizador = $_POST["utilizador"];
+/* $utilizador = $_POST["utilizador"]; */
 $senha = $_POST["senha"];
 
 $servername = "localhost";
@@ -30,18 +33,23 @@ if (!$conn) {
 
 
 $fazer = $_POST["extra"];
-if ($fazer == 0) login($utilizador, $senha);
-if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data, $id_utilizador);
-if ($fazer == 2) eliminar($id);
-if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data);
+if ($fazer == 0) login($user, $senha);
+/* if ($fazer == 0) login($utilizador, $senha); */
+if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data, $id_user, $user);
+/* if ($fazer == 1) adicionar($nome, $local, $hora, $notas, $data, $id_utilizador); */
+if ($fazer == 2) eliminar($id, $user, $id_user);
+if ($fazer == 3) modificar($id, $nome, $local, $hora, $notas, $data, $user, $id_user);
 if ($fazer == 4) logout();
-if ($fazer == 5) novo_utilizador($utilizador, $senha);
-if ($fazer == 6) alterar_utilizador($id_utilizador, $utilizador, $senha);
-if ($fazer == 7) apagar_utilizador($id_utilizador);
+if ($fazer == 5) novo_utilizador($user, $senha);
+/* if ($fazer == 5) novo_utilizador($utilizador, $senha); */
+if ($fazer == 6) alterar_utilizador($id_user, $user, $senha);
+/* if ($fazer == 6) alterar_utilizador($id_utilizador, $utilizador, $senha); */
+if ($fazer == 7) apagar_utilizador($id_user);
+/* if ($fazer == 7) apagar_utilizador($id_utilizador); */
 
 
 
-function login($utilizador, $senha)
+function login($user, $senha)
 {
       global $conn;
       $N = 16384; // Fator de custo
@@ -59,7 +67,8 @@ function login($utilizador, $senha)
       // Verifique se a instrução foi preparada com sucesso
       if ($stmt) {
             // Defina os parâmetros da instrução
-            mysqli_stmt_bind_param($stmt, 's', $utilizador);
+            mysqli_stmt_bind_param($stmt, 's', $user);
+            /* mysqli_stmt_bind_param($stmt, 's', $utilizador); */
 
             // Execute a instrução SQL
             mysqli_stmt_execute($stmt);
@@ -78,25 +87,36 @@ function login($utilizador, $senha)
 
                   if ($hashedPassword === $row['senha']) {
                         // A senha é válida
-                        $_SESSION['utilizador'] = $utilizador;
+                        $_SESSION['utilizador'] = $user;
+                        /* $_SESSION['utilizador'] = $utilizador; */
                         $_SESSION['senha'] = $senha;
                         $_SESSION['id'] = $row['id'];
-                     /*    echo $_SESSION['utilizador'];
-                        echo "<br>";
-                        echo $_SESSION['id']; */
-                        /* die(); */
-                        header('Location: inicio.php');
+
+                        // Crie um formulário oculto com um campo de entrada para o valor de $id
+                        echo '<form id="redirectForm" method="post" action="inicio.php">';
+                        echo '<input type="hidden" name="user" value="' . $user . '">';
+                        echo '<input type="hidden" name="id_user" value="' . $row['id'] . '">';
+                        echo '</form>';
+
+                        echo '<script>';
+                        echo 'document.getElementById("redirectForm").submit();';
+                        echo '</script>';
+
+                        /* header("Location: inicio.php?user=".$utilizador); */
+                        exit;
                   } else {
                         // A senha é inválida
                         unset($_SESSION['utilizador']);
                         unset($_SESSION['senha']);
                         header('Location: index.php');
+                        exit;
                   }
             } else {
                   // O usuário não foi encontrado
                   unset($_SESSION['utilizador']);
                   unset($_SESSION['senha']);
                   header('Location: index.php');
+                  exit;
             }
 
             // Libere a instrução preparada
@@ -108,7 +128,7 @@ function login($utilizador, $senha)
 }
 
 
-function adicionar($nome, $local, $hora, $notas, $data, $id_utilizador)
+function adicionar($nome, $local, $hora, $notas, $data, $id_user, $user)
 {
       global $conn;
 
@@ -123,11 +143,30 @@ function adicionar($nome, $local, $hora, $notas, $data, $id_utilizador)
       }
 
       // Bind dos valores aos placeholders
-      mysqli_stmt_bind_param($stmt, "ssssss", $nome, $local, $hora, $notas, $data, $id_utilizador);
+      mysqli_stmt_bind_param($stmt, "ssssss", $nome, $local, $hora, $notas, $data, $id_user);
+      /* mysqli_stmt_bind_param($stmt, "ssssss", $nome, $local, $hora, $notas, $data, $id_utilizador); */
 
       // Executa a query
       if (mysqli_stmt_execute($stmt)) {
-            echo "Novo registro criado com sucesso";
+            /*             echo "Novo registro criado com sucesso"; */
+            mysqli_stmt_close($stmt);
+            /*  mysqli_close($conn); */
+           
+            mysqli_close($conn);
+          /*  echo $user;
+           echo "<br>";
+           echo $id_user;
+           die(); */
+            echo '<form id="redirectForm" method="post" action="inicio.php">';
+            echo '<input type="hidden" name="user" value="' . $user . '">';
+            echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
+            echo '</form>';
+
+            echo '<script>';
+            echo 'document.getElementById("redirectForm").submit();';
+            echo '</script>';
+            /* header('Location: inicio.php'); */
+            exit;
       } else {
             echo "Erro ao executar a query: " . mysqli_error($conn);
       }
@@ -136,11 +175,20 @@ function adicionar($nome, $local, $hora, $notas, $data, $id_utilizador)
       mysqli_stmt_close($stmt);
       /*  mysqli_close($conn); */
       mysqli_close($conn);
-      header('Location: inicio.php');
+      echo '<form id="redirectForm" method="post" action="inicio.php">';
+      echo '<input type="hidden" name="user" value="' . $user . '">';
+      echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
+      echo '</form>';
+
+      echo '<script>';
+      echo 'document.getElementById("redirectForm").submit();';
+      echo '</script>';
+      /* header('Location: inicio.php'); */
+      exit;
 }
 
 
-function eliminar($id)
+function eliminar($id, $user, $id_user)
 {
 
       global $conn;
@@ -181,11 +229,20 @@ function eliminar($id)
             echo "Erro ao ordenar tabela: " . mysqli_error($conn);
       }
       mysqli_close($conn);
-      header('Location: inicio.php');
+      echo '<form id="redirectForm" method="post" action="inicio.php">';
+      echo '<input type="hidden" name="user" value="' . $user . '">';
+      echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
+      echo '</form>';
+
+      echo '<script>';
+      echo 'document.getElementById("redirectForm").submit();';
+      echo '</script>';
+      /* header('Location: inicio.php'); */
+      exit;
 }
 
 
-function modificar($id, $nome, $local, $hora, $notas, $data)
+function modificar($id, $nome, $local, $hora, $notas, $data, $user, $id_user)
 {
       global $conn;
       // Prepare a consulta SQL com parâmetros
@@ -206,18 +263,27 @@ function modificar($id, $nome, $local, $hora, $notas, $data)
             die('Erro ao executar a consulta: ' . $conn->error);
       }
       mysqli_close($conn);
-      header('Location: inicio.php');
+      echo '<form id="redirectForm" method="post" action="inicio.php">';
+      echo '<input type="hidden" name="user" value="' . $user . '">';
+      echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
+      echo '</form>';
+
+      echo '<script>';
+      echo 'document.getElementById("redirectForm").submit();';
+      echo '</script>';
+      /* header('Location: inicio.php'); */
+      exit;
 }
 
 function logout()
 {
       session_destroy();
       header("Location: index.php");
-      exit();
+      exit;
 }
 
 
-function novo_utilizador($utilizador, $senha)
+function novo_utilizador($user, $senha)
 {
       // encriptar com algoritmo scrypt
       $N = 16384; // Fator de custo
@@ -230,20 +296,24 @@ function novo_utilizador($utilizador, $senha)
 
       // Crie uma consulta SQL para inserir a senha encriptada na tabela de usuários
       global $conn;
-      $insertQuery = "INSERT INTO Utilizadores (utilizador, senha, salt) VALUES ('$utilizador', '$hashedPassword', '$salt')";
+      $insertQuery = "INSERT INTO Utilizadores (utilizador, senha, salt) VALUES ('$user', '$hashedPassword', '$salt')";
 
       // Execute a consulta SQL usando a função mysqli_query
       if (mysqli_query($conn, $insertQuery)) {
-            echo "Senha inserida com sucesso!";
+            /* echo "Senha inserida com sucesso!"; */
+            mysqli_close($conn);
+            header('Location: index.php');
+            exit;
       } else {
             echo "Erro ao inserir senha: " . mysqli_error($conn);
       }
 
       mysqli_close($conn);
       header('Location: index.php');
+      exit;
 }
 
-function alterar_utilizador($id_utilizador, $utilizador, $senha)
+function alterar_utilizador($id_user, $user, $senha)
 {
 
       // encriptar com algoritmo scrypt
@@ -256,7 +326,7 @@ function alterar_utilizador($id_utilizador, $utilizador, $senha)
       $hashedPassword = hash_pbkdf2('sha256', $senha, $salt, $N * $r * $p, $hashLength, true);
 
       global $conn;
-      $updateQuery = "UPDATE Utilizadores SET utilizador = '$utilizador', senha = '$hashedPassword', salt = '$salt' WHERE id = $id_utilizador";
+      $updateQuery = "UPDATE Utilizadores SET utilizador = '$user', senha = '$hashedPassword', salt = '$salt' WHERE id = $id_user";
 
       // Execute a consulta SQL usando a função mysqli_query
       if (mysqli_query($conn, $updateQuery)) {
@@ -265,17 +335,26 @@ function alterar_utilizador($id_utilizador, $utilizador, $senha)
             echo "Erro ao atualizar: " . mysqli_error($conn);
       }
       mysqli_close($conn);
-      header('Location: inicio.php');
+      echo '<form id="redirectForm" method="post" action="inicio.php">';
+      echo '<input type="hidden" name="user" value="' . $user . '">';
+      echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
+      echo '</form>';
+
+      echo '<script>';
+      echo 'document.getElementById("redirectForm").submit();';
+      echo '</script>';
+      /* header('Location: inicio.php'); */
+      exit;
 }
 
 
-function apagar_utilizador($id_utilizador)
+function apagar_utilizador($id_user)
 {
-      echo $id_utilizador;
+      echo $id_user;
 
       global $conn;
-      $deleteUtilizadoresQuery = "DELETE FROM Utilizadores WHERE id = $id_utilizador";
-      $deleteEventosQuery = "DELETE FROM Eventos WHERE id_utilizador = $id_utilizador";
+      $deleteUtilizadoresQuery = "DELETE FROM Utilizadores WHERE id = $id_user";
+      $deleteEventosQuery = "DELETE FROM Eventos WHERE id_utilizador = $id_user";
 
       if ($conn->query($deleteUtilizadoresQuery) === TRUE && $conn->query($deleteEventosQuery) === TRUE) {
             echo "Apagado com sucesso!";
@@ -284,4 +363,5 @@ function apagar_utilizador($id_utilizador)
       }
       mysqli_close($conn);
       header('Location: index.php');
+      exit;
 }
