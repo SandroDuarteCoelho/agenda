@@ -325,6 +325,7 @@ function novo_utilizador($user, $senha)
 
                   echo '<form id="redirectForm" method="post" action="novo_utili.php">';
                   echo '<input type="hidden" name="novo_utili" value="0">';
+                  echo '<input type="hidden" name="novo_utilizador" value="' . $user . '">';
                   echo '</form>';
 
                   echo '<script>';
@@ -364,7 +365,8 @@ function alterar_utilizador($id_user, $user, $senha)
             echo "Erro ao atualizar: " . mysqli_error($conn);
       }
       mysqli_close($conn);
-      echo '<form id="redirectForm" method="post" action="inicio.php">';
+      echo '<form id="redirectForm" method="get" action="gerir_utili.php">';
+      echo '<input type="hidden" name="gerir_utili" value="1">';
       echo '<input type="hidden" name="user" value="' . $user . '">';
       echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
       echo '</form>';
@@ -372,6 +374,15 @@ function alterar_utilizador($id_user, $user, $senha)
       echo '<script>';
       echo 'document.getElementById("redirectForm").submit();';
       echo '</script>';
+
+      /* echo '<form id="redirectForm" method="post" action="inicio.php">';
+      echo '<input type="hidden" name="user" value="' . $user . '">';
+      echo '<input type="hidden" name="id_user" value="' . $id_user . '">';
+      echo '</form>';
+
+      echo '<script>';
+      echo 'document.getElementById("redirectForm").submit();';
+      echo '</script>'; */
       /* header('Location: inicio.php'); */
       exit;
 }

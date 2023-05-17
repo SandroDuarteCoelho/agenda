@@ -25,7 +25,44 @@
 <body>
 
   <?php $user = $_GET['user'];
-  $id_user = $_GET['id_user']; ?>
+  $id_user = $_GET['id_user'];
+  /* $user = $_POST['user'];
+  $id_user = $_POST['id_user']; */
+  $gerir_utili = $_GET['gerir_utili'];
+
+  if ($gerir_utili == "1") { ?>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        myModal.show();
+      });
+    </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">Utilizador já existe.</h1> -->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Alterações efetuadas com sucesso.</h1>
+          </div>
+          <div class="modal-footer">
+
+            <form action="inicio.php" method="POST">
+              <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+              <input type="hidden" name="user" value="<?php echo $user; ?>">
+              <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Fechar</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php } ?>
+
   <br>
   <div class="container text-center">
     <div class="row d-flex justify-content-center align-items-center">
@@ -63,22 +100,48 @@
                 </form>
               </div>
 
-              <form class="row g-3" action="test.php" method="POST">
-                <div class="d-flex justify-content-center">
-                  <input type="hidden" name="extra" value="7">
-                  <!-- <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>"> -->
+              <div class="d-flex flex-row justify-content-center">
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Apagar conta
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Apagar conta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tem a certeza? Vai perder todos os dados!</h1>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                        <form action="test.php" method="POST">
+                          <div class="d-flex justify-content-center">
+                            <input type="hidden" name="extra" value="7">
+                            <!-- <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>"> -->
+                            <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+                            <input type="hidden" name="user" value="<?php echo $user; ?>">
+                            <button class="btn btn-outline-danger" type="submit">Sim</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <form action="inicio.php" method="POST">
                   <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
                   <input type="hidden" name="user" value="<?php echo $user; ?>">
-                  <button class="btn btn-danger" type="submit">Apagar Conta</button>
-                  <!-- <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button> -->
-                </div>
-              </form>
+                  <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button>
+                </form>
+              </div>
 
-              <form action="inicio.php" method="POST">
-                <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
-                <input type="hidden" name="user" value="<?php echo $user; ?>">
-                <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button>
-              </form>
             </div>
             <div class="card-footer text-muted">
               Agenda Pessoal
