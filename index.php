@@ -35,7 +35,7 @@
                   <div class="col-md">
                     <div class="form-floating">
                       <input type="text" name="user" class="form-control" id="iutilizador" autocomplete="off" placeholder="">
-                      <label for="floatingInputGrid">Utilizador ou Email</label>
+                      <label for="floatingInputGrid">Em@il</label>
                     </div>
                   </div>
                   <div class="col-md">

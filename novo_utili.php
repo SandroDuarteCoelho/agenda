@@ -13,8 +13,63 @@
 </head>
 
 <body>
-  <br>
+<?php
+  $novo_utili = $_POST['novo_utili'];
+  if ($novo_utili == "1") { ?>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        myModal.show();
+      });
+    </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Utilizador já existe.</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Escolha novas credenciais.</h1>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.location.href='index.php'">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php } elseif ($novo_utili == "0") { ?>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        myModal.show();
+      });
+    </script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Seja bem-vindo.</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Utilizador gravado com sucesso.</h1>
+          <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Já pode fazer login.</h1>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.location.href='index.php'">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php } ?>
+
+
+  <br>
   <div class="container text-center">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col">

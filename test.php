@@ -151,9 +151,9 @@ function adicionar($nome, $local, $hora, $notas, $data, $id_user, $user)
             /*             echo "Novo registro criado com sucesso"; */
             mysqli_stmt_close($stmt);
             /*  mysqli_close($conn); */
-           
+
             mysqli_close($conn);
-          /*  echo $user;
+            /*  echo $user;
            echo "<br>";
            echo $id_user;
            die(); */
@@ -296,21 +296,50 @@ function novo_utilizador($user, $senha)
 
       // Crie uma consulta SQL para inserir a senha encriptada na tabela de usuários
       global $conn;
-      $insertQuery = "INSERT INTO Utilizadores (utilizador, senha, salt) VALUES ('$user', '$hashedPassword', '$salt')";
 
-      // Execute a consulta SQL usando a função mysqli_query
-      if (mysqli_query($conn, $insertQuery)) {
-            /* echo "Senha inserida com sucesso!"; */
+      $sql = "SELECT * FROM Utilizadores WHERE utilizador = '$user'";
+      $result = $conn->query($sql);
+
+      if ($result->num_rows > 0) {
+            // Se o email já existe, exibir uma janela modal Bootstrap 5.2 informando que já existe
+            mysqli_close($conn);
+
+            // Crie um formulário oculto com um campo de entrada para o valor de $id
+            echo '<form id="redirectForm" method="post" action="novo_utili.php">';
+            echo '<input type="hidden" name="novo_utili" value="1">';
+            echo '</form>';
+
+            echo '<script>';
+            echo 'document.getElementById("redirectForm").submit();';
+            echo '</script>';
+            /* header('Location: novo_utili.php'); */
+            exit;
+      } else {
+            // Caso contrário, gravar o email na tabela Utilizadores
+            $insertQuery = "INSERT INTO Utilizadores (utilizador, senha, salt) VALUES ('$user', '$hashedPassword', '$salt')";
+
+            // Execute a consulta SQL usando a função mysqli_query
+            if (mysqli_query($conn, $insertQuery)) {
+                  /* echo "Senha inserida com sucesso!"; */
+                  mysqli_close($conn);
+
+                  echo '<form id="redirectForm" method="post" action="novo_utili.php">';
+                  echo '<input type="hidden" name="novo_utili" value="0">';
+                  echo '</form>';
+
+                  echo '<script>';
+                  echo 'document.getElementById("redirectForm").submit();';
+                  echo '</script>';
+                  /* header('Location: index.php'); */
+                  exit;
+            } else {
+                  echo "Erro ao inserir senha: " . mysqli_error($conn);
+            }
+
             mysqli_close($conn);
             header('Location: index.php');
             exit;
-      } else {
-            echo "Erro ao inserir senha: " . mysqli_error($conn);
       }
-
-      mysqli_close($conn);
-      header('Location: index.php');
-      exit;
 }
 
 function alterar_utilizador($id_user, $user, $senha)

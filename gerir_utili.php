@@ -61,29 +61,24 @@
                     <input type="password" class="form-control" name="senha" id="isenha" value=<?php echo "$senha" ?> placeholder=<?php echo "$senha" ?>>
                   </div>
                 </form>
-
-                <form class="row g-3" action="test.php" method="POST">
-                  <div class="d-flex justify-content-center">
-                    <input type="hidden" name="extra" value="7">
-                    <!-- <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>"> -->
-                    <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
-                    <input type="hidden" name="user" value="<?php echo $user; ?>">
-                    <button class="btn btn-danger" type="submit">Apagar Conta</button>
-                    <!-- <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button> -->
-                  </div>
-                </form>
-                
-                <form action="inicio.php" method="post">
-                  <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
-                  <input type="hidden" name="user" value="<?php echo $user; ?>">
-                  <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button>
-                </form>
               </div>
 
-              <!-- <div class="d-flex justify-content-center">
-                <button class="btn btn-danger" onclick="apagarConta()">Apagar Conta</button>
+              <form class="row g-3" action="test.php" method="POST">
+                <div class="d-flex justify-content-center">
+                  <input type="hidden" name="extra" value="7">
+                  <!-- <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>"> -->
+                  <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+                  <input type="hidden" name="user" value="<?php echo $user; ?>">
+                  <button class="btn btn-danger" type="submit">Apagar Conta</button>
+                  <!-- <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button> -->
+                </div>
+              </form>
+
+              <form action="inicio.php" method="POST">
+                <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+                <input type="hidden" name="user" value="<?php echo $user; ?>">
                 <button onclick="window.location.href='inicio.php';" class="btn btn-dark ms-2">Voltar</button>
-              </div> -->
+              </form>
             </div>
             <div class="card-footer text-muted">
               Agenda Pessoal
