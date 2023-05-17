@@ -124,7 +124,7 @@
       </div>
     </div>
   </div>
-
+  <br><br>
   <?php
   include "tempo_restante.php";
   ?>
