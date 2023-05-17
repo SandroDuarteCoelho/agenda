@@ -96,11 +96,8 @@
                         <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
                       </svg>
                       Guardar</button>
-                    <!-- <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
-                    <input type="hidden" name="user" value="<?php echo $user; ?>">
-                    <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>-->
-                  <!-- </div>  -->
                   </div>
+                </div>
               </form>
 
               <form action="inicio.php" method="post">
@@ -116,55 +113,7 @@
     </div>
   </div>
 
-
   <br>
-
-
-
-  <!-- <div class="container text-center">
-      <div class="row justify-content-md-center ">
-        <div class="col-md-6 mx-2 ">
-
-          <div class="card text-bg-light mb-3">
-            <img src="./images/moroccan-flower.png" class="card-img" alt="bloco de notas">
-            <div class="card-img-overlay">
-
-              <br>
-
-              <h1><?php echo $conteudo_h1; ?></h1>
-              <form class="p-5 row g-3 " action="test.php" method="POST" autocomplete="off">
-                <div class="col-md-6">
-                  <label for="nome">Nome</label>
-                  <input type="name" name="nome" class="form-control" value="<?php echo $nomevelho; ?>" id="inome" required>
-                  <input type="hidden" name="extra" value="<?php echo $valor; ?>">
-                  <input type="hidden" name="id" value="<?php echo $id; ?>">
-                  <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>">
-                </div>
-                <div class="col-md-6">
-                  <label for="local">Local</label>
-                  <input type="text" name="local" class="form-control" value="<?php echo $localvelho; ?>" id="ilocal" required>
-                </div>
-                <div class="col-12">
-                  <label for="notas">Notas</label>
-                  <input type="text" name="notas" class="form-control" value="<?php echo $notasvelho; ?>" id="inotas" required>
-                </div>
-                <div class="form-group">
-                  <label for="ihora">Hora:</label>
-                  <input type="time" name="hora" value="<?php echo $horavelho; ?>" id="ihora" required>
-                  <label for="idata">Data:</label>
-                  <input type="date" name="data" value="<?php echo $datavelho; ?>" id="idata" required>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Guardar</button>
-                  <button type="submit" class="btn btn-dark" onclick="window.location.href='inicio.php'">Voltar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div> -->
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

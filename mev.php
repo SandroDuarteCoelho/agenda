@@ -61,8 +61,6 @@
     die("Connection failed: " . mysqli_connect_error());
   }
 
-
-
   $sql = "SELECT id, nome, locale, hora, notas, datas FROM Eventos WHERE id_utilizador=?";
   $stmt = mysqli_prepare($conn, $sql);
   /* mysqli_stmt_bind_param($stmt, "i", $id_utilizador); */
@@ -75,7 +73,6 @@
   }
 
   ?>
-
 
   <div class="form-group">
     <?php if ($valor == "2") { ?>
